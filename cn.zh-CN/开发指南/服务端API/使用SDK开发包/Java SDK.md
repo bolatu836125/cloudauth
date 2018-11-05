@@ -106,7 +106,7 @@ if( 1 == statusCode || 2 == statusCode ) { //认证通过or认证不通过
 //常见问题：https://help.aliyun.com/document_detail/57640.html
 ```
 
-## RPManual认证方案示例 {#section_wxk_pjt_4fb .section}
+## RPManual认证方案示例 {#RPManual .section}
 
 代码示例同[RPBasic](#)。其中biz须传入您在控制台上创建的、采用RPManual认证方案的场景标识。
 
@@ -175,15 +175,15 @@ if( 1 == statusCode || 2 == statusCode ) { //认证通过or认证不通过
 //常见问题：https://help.aliyun.com/document_detail/57640.html
 ```
 
-## RPBioOnlyPro认证方案示例 {#section_jpy_vjt_4fb .section}
+## RPBioOnlyPro认证方案示例 {#RPBioOnlyPro .section}
 
 代码示例同[RPBioID](#)。其中biz须传入您在控制台上创建的、采用RPBioOnlyPro认证方案的场景标识。
 
-## RPBioOnly认证方案示例 {#section_plf_yjt_4fb .section}
+## RPBioOnly认证方案示例 {#RPBioOnly .section}
 
 代码示例同[RPBioID](#)。其中biz须传入您在控制台上创建的、采用RPBioOnly认证方案的场景标识。
 
-## FVBioOnly认证方案示例 {#section_vjc_1kt_4fb .section}
+## FVBioOnly认证方案示例 {#FVBioOnly .section}
 
 ```
 //创建DefaultAcsClient实例并初始化
@@ -248,7 +248,7 @@ if( 1 == statusCode || 2 == statusCode ) { //认证通过or认证不通过
 //常见问题：https://help.aliyun.com/document_detail/57640.html
 ```
 
-## RPH5BioOnly认证方案示例 {#section_kvy_bkt_4fb .section}
+## RPH5BioOnly认证方案示例 {#RPH5BioOnly .section}
 
 ```
 //创建DefaultAcsClient实例并初始化
@@ -313,7 +313,7 @@ if( 1 == statusCode || 2 == statusCode ) { //认证通过or认证不通过
 //常见问题：https://help.aliyun.com/document_detail/57640.html
 ```
 
-## RPMin认证方案示例 {#section_hqw_2kt_4fb .section}
+## RPMin认证方案示例 {#RPMin .section}
 
 ```
 //创建DefaultAcsClient实例并初始化
@@ -381,7 +381,7 @@ try {
 //常见问题：https://help.aliyun.com/document_detail/57640.html
 ```
 
-## 人脸比对验证示例 {#section_svg_hkt_4fb .section}
+## 人脸比对验证示例 {#CompareFaces .section}
 
 ```
 //创建DefaultAcsClient实例并初始化
