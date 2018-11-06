@@ -30,7 +30,7 @@
 |Format|String|否|返回值的类型，支持 JSON与 XML，默认为 XML。|
 |Version|String|是|API 版本号，为日期形式：YYYY-MM-DD，具体请参考[API发布说明](https://help.aliyun.com/document_detail/65922.html)。|
 |AccessKeyId|String|是|阿里云颁发给用户的访问服务所用的密钥 ID。|
-|Signature|String|是|用 AccessKeySecret 签名的结果串，关于签名的计算方法请参考[API 签名机制](https://help.aliyun.com/document_detail/66526.html)。|
+|Signature|String|是|用 AccessKeySecret 签名的结果串，关于签名的计算方法请参考[API 签名机制](https://help.aliyun.com/document_detail/66526.html)中的RPC风格API。|
 |SignatureMethod|String|是|签名方式，目前支持 HMAC-SHA1。|
 |Timestamp|String|是|请求的时间戳。日期格式按照 ISO8601 标准表示，并需要使用 UTC 时间 0 时区的值。格式为 YYYY-MM-DDThh:mm:ssZ。例如，2017-11-11T12:00:00Z（为北京时间 2017年11月11日20点0分0秒）。|
 |SignatureVersion|String|是|签名算法版本，目前版本是1.0。|
