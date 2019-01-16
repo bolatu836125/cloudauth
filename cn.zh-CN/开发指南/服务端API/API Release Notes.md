@@ -4,7 +4,12 @@
 
 |API版本号|发布说明|
 |------|----|
-|2018-09-16|更新内容如下：提交认证资料接口（SubmitMaterials）增加一个返回参数（AuditConclusions）。|
+|2018-09-16|更新内容如下：-   提交认证资料接口（SubmitMaterials）增加一个返回参数（AuditConclusions）。
+-   提交认证资料接口（SubmitMaterials）增加一个返回参数（AuthorityComparisonScore）。
+-   查询认证状态接口（GetStatus）增加一个返回参数（AuthorityComparisonScore）。
+-   发布提交认证接口（SubmitVerification）。
+
+|
 |2018-08-07|更新内容如下：-   版本 1.1.3 的问题修复。
 -   发起认证请求接口（GetVerifyToken）增加一个可选入参（VerifyConfigs）。
 
