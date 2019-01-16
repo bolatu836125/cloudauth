@@ -2,7 +2,7 @@
 
 ## 获取地址 {#section_aq3_hss_gfb .section}
 
-[GitHub](https://github.com/aliyun/aliyun-openapi-php-sdk/tree/c970186e99d4b055701acaade81e229a984510c4)，引入aliyun-php-sdk-core和aliyun-php-sdk-cloudauth。
+[GitHub](https://github.com/aliyun/aliyun-openapi-php-sdk)，引入aliyun-php-sdk-core和aliyun-php-sdk-cloudauth。
 
 **说明：** 两个SDK 都必须引入。其中aliyun-php-sdk-core为阿里云的核心SDK，aliyun-php-sdk-cloudauth为实人认证的SDK。
 
