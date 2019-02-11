@@ -2,9 +2,9 @@
 
 下载无线认证 SDK 后，您可参考以下步骤将认证 SDK 集成到您的 Android 应用中。
 
-Android SDK 与包名\(package name\)+签名\(keystore\)绑定，package name和keystore两者修改任一，都需要在[管理控制台](https://yundun.console.aliyun.com/?p=cloudauth)上重新下载 SDK，debug 和 release 不能混用。
+Android SDK 与包名（package name）+签名（keystore）绑定，修改package name或keystore都需要在[管理控制台](https://yundun.console.aliyun.com/?p=cloudauth)上重新下载 SDK，debug 和 release 不能混用。
 
-**说明：** 若您需要用到 V2 方式的签名，打包时请同时勾选 V1、V2 签名（只选 V2 签名，apk 在 Android 7.0 以下都无法安装）。
+**说明：** 若您需要用到 V2 方式的签名，打包时请同时勾选 V1、V2 签名（如果只选择V2签名，apk将无法在Android 7.0以下安装）。
 
 ## 步骤一： 在工程中导入SDK { .section}
 
@@ -12,7 +12,7 @@ Android SDK 与包名\(package name\)+签名\(keystore\)绑定，package name和
 
 -   aliyun-oss-sdk-android.jar
 -   FaceLivenessOpen-x.x.x.x.aar
--   NoCaptchaSDK-external-release.aar（通过解压Android.NoCaptchaSDK.xxx.tar获得该依赖包\)
+-   NoCaptchaSDK-external-release.aar（通过解压Android.NoCaptchaSDK.xxx.tar获得该依赖包）
 -   SecurityBodySDK-external-release.aar（通过解压Android.SecurityBodySDK.xxx.tar获得该依赖包）
 -   SecurityGuardSDK-external-release.aar（通过解压Android.SecurityGuardSDK.xxx.tar获得该依赖包）
 -   Okhttp.jar
@@ -81,7 +81,7 @@ defaultConfig {
 
         如果在`project.properties`中指定了ProGuard配置（例如，在`project.properties`中包含`proguard.config=proguard.cfg`语句），则表明已使用 ProGuard 进行代码混淆，混淆配置在 proguard.cfg 文件中：
 
-        ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/13550/154045838414305_zh-CN.png)
+        ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/13550/154985317414305_zh-CN.png)
 
     -   **Android Studio**
 
