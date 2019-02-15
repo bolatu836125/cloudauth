@@ -10,7 +10,7 @@ Android SDK 与包名（package name）+签名（keystore）绑定，修改packa
 
 解压无线认证SDK包中的client.zip文件，将以下Android依赖包引入到您的应用工程中：
 
--   oss-android-sdk.aar
+-   oss-android-sdk-x.x.x.x.aar
 -   FaceLivenessOpen-x.x.x.x.aar
 -   NoCaptchaSDK-external-release.aar（通过解压Android.NoCaptchaSDK.xxx.tar获得该依赖包）
 -   SecurityBodySDK-external-release.aar（通过解压Android.SecurityBodySDK.xxx.tar获得该依赖包）
@@ -90,7 +90,7 @@ defaultConfig {
 
         如果在`project.properties`中指定了ProGuard配置（例如，在`project.properties`中包含`proguard.config=proguard.cfg`语句），则表明已使用 ProGuard 进行代码混淆，混淆配置在 proguard.cfg 文件中：
 
-        ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/13550/155021664614305_zh-CN.png)
+        ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/13550/155021973014305_zh-CN.png)
 
     -   **Android Studio**
 
