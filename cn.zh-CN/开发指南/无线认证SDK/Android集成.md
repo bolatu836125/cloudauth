@@ -10,7 +10,7 @@ Android SDK 与包名（package name）+签名（keystore）绑定，修改packa
 
 解压无线认证SDK包中的client.zip文件，将以下Android依赖包引入到您的应用工程中：
 
--   aliyun-oss-sdk-android.jar
+-   oss-android-sdk.aar
 -   FaceLivenessOpen-x.x.x.x.aar
 -   NoCaptchaSDK-external-release.aar（通过解压Android.NoCaptchaSDK.xxx.tar获得该依赖包）
 -   SecurityBodySDK-external-release.aar（通过解压Android.SecurityBodySDK.xxx.tar获得该依赖包）
@@ -39,8 +39,8 @@ Android SDK 与包名（package name）+签名（keystore）绑定，修改packa
     ```
     compile files('../libs/okhttp-3.2.0.jar')
      compile files('../libs/okio-1.6.0.jar')
-     compile files('../libs/aliyun-oss-sdk-android-2.2.0.jar')
      compile files('../libs/windvane-min-8.0.3.2.3.jar')
+     compile (name:'aliyun-oss-sdk-android-2.3.0.1',ext:'aar')
      compile (name:'FaceLivenessOpen-2.1.6.10',ext:'aar')
      compile (name:'rpsdk-2.4.0.3',ext:'aar')
      compile (name:'SecurityGuardSDK-external-release-5.4.94',ext:'aar')
@@ -72,6 +72,15 @@ defaultConfig {
 }
 ```
 
+**关于权限**
+
+无线认证SDK的使用需要添加以下权限：
+
+```
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+```
+
 ## 步骤二： 添加 ProGuard 配置 { .section}
 
 如果您的应用使用了 ProGuard 进行代码混淆，为了保证实人认证服务需要的一些类不被混淆，需要在 ProGuard 配置文件中添加相关指令。
@@ -81,7 +90,7 @@ defaultConfig {
 
         如果在`project.properties`中指定了ProGuard配置（例如，在`project.properties`中包含`proguard.config=proguard.cfg`语句），则表明已使用 ProGuard 进行代码混淆，混淆配置在 proguard.cfg 文件中：
 
-        ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/13550/154985317414305_zh-CN.png)
+        ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/13550/155021664614305_zh-CN.png)
 
     -   **Android Studio**
 
@@ -157,9 +166,9 @@ defaultConfig {
 
     **说明：** 工程上，通常对 IDE 中直接运行\(debug\)和正式打包\(release\)会配置不同的签名\(keystore\)，在 IDE 中直接编译运行的是 debug 包，其签名图片文件和 release 包是不同的。
 
--   项目中之前引入的组件与无线认证 SDK 中的组件有重复，例如 SecurityGuardSDK、aliyun-oss-sdk-android 等。
+-   项目中之前引入的组件与无线认证 SDK 中的组件有重复，例如 SecurityGuardSDK、oss-android-sdk 等。
 
-    **处理建议**：若 SecurityGuardSDK 组件有重复，删除低版本，但保留两个版本的yw\_1222\_\*.jpg签名图片文件；若 aliyun-oss-sdk-android 等其他组件有重复，删除低版本即可。
+    **处理建议**：若 SecurityGuardSDK 组件有重复，删除低版本，但保留两个版本的yw\_1222\_\*.jpg签名图片文件；若 oss-android-sdk 等其他组件有重复，删除低版本即可。
 
 -   项目中之前引入的 SecurityEnvSDK 组件与无线认证 SDK 中的 SGMain 组件报 duplicate symbol 冲突。
 
