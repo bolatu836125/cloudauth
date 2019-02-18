@@ -40,7 +40,7 @@ Android SDK 与包名（package name）+签名（keystore）绑定，修改packa
     compile files('../libs/okhttp-3.2.0.jar')
      compile files('../libs/okio-1.6.0.jar')
      compile files('../libs/windvane-min-8.0.3.2.3.jar')
-     compile (name:'aliyun-oss-sdk-android-2.3.0.1',ext:'aar')
+     compile (name:'aliyun-oss-sdk-android-2.9.2',ext:'aar')
      compile (name:'FaceLivenessOpen-2.1.6.10',ext:'aar')
      compile (name:'rpsdk-2.4.0.3',ext:'aar')
      compile (name:'SecurityGuardSDK-external-release-5.4.94',ext:'aar')
@@ -90,7 +90,7 @@ defaultConfig {
 
         如果在`project.properties`中指定了ProGuard配置（例如，在`project.properties`中包含`proguard.config=proguard.cfg`语句），则表明已使用 ProGuard 进行代码混淆，混淆配置在 proguard.cfg 文件中：
 
-        ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/13550/155021973014305_zh-CN.png)
+        ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/13550/155047965514305_zh-CN.png)
 
     -   **Android Studio**
 
