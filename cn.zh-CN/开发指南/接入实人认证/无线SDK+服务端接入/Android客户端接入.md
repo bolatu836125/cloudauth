@@ -5,23 +5,21 @@
 ## 操作步骤 {#section_cbs_bf4_1gb .section}
 
 1.  下载 Android SDK 及 Demo 工程。
-    -   Android SDK：[FaceVerifySDK\_Android\_3.1.zip](http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/97845/cn_zh/1542875106583/FaceVerifySDK_Android_3.1.zip)
+    -   Android SDK：[FaceVerifySDK\_Android\_3.0.zip](http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/108177/cn_zh/1550760945131/FaceVerifySDK_Android_3.0.zip)
     -   Android Demo：[FaceDetectDemo-Android-master-20181121.zip](http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/97845/cn_zh/1542875137254/FaceDetectDemo-Android-master-20181121.zip)
 
         **说明：** 此 Android Demo 采用的是通过 gradle 拉取 maven 仓库下载 SDK，您可以修改为直接引入 SDK 的方式。
 
 2.  添加 SDK。
 
-    将下载的 SDK 解压后复制到项目下的 libs 目录（如果不存在 libs目录，请自行创建），并在 build.gradle 文件中，增加以下依赖：
+    将下载的 SDK 解压后复制到项目下，并在 build.gradle 文件中增加以下依赖：
 
     ```
-    dependencies {
-        ...
-        compile 'com.android.support:support-v4:26.0.0-alpha1'
-        compile files('libs/deviceid-release-6.0.2.20181008.aar')
-        compile files('libs/fastjson-1.1.45.jar')
-        compile files('libs/sdk_antcloud-3.0.0.31.aar')
-    }
+    compile 'com.alipay.android.phone.zoloz:sdk:3.0.0.00000001@aar' 
+    compile 'com.alibaba:fastjson:1.1.45@jar' 
+    compile 'com.android.support:support-v4:26.0.0-alpha1' 
+    compile "com.alipay.android.phone:deviceid-release:6.0.2.20171228@aar"
+    
     ```
 
 3.  调用 SDK。
@@ -70,4 +68,86 @@
             |2002|网络错误。|
             |2006|刷脸失败，如需获取更详细的失败原因，需调用服务端人脸结果查询接口。|
 
+
+## **接口混淆配置属性** {#section_hzv_nzc_wgb .section}
+
+为避免接口混淆，您可以参考以下代码来保留类名：
+
+```
+-keep public class com.alipay.mobile.security.zim.api.**{
+    public <fields>;
+    public <methods>;
+}
+ 
+-keep class com.alipay.mobile.security.zim.biz.ZIMFacadeBuilder {
+  !private <fields>;
+   !private <methods>;
+}
+ 
+-keep class com.alipay.android.phone.mobilecommon.logger.AlipayMonitorLogService {
+    !private <fields>;
+    !private <methods>;
+}
+ 
+-keep class com.alipay.android.phone.mobilecommon.rpc.AlipayRpcService {
+    !private <fields>;
+    !private <methods>;
+}
+ 
+-keep class com.alipay.android.phone.mobilecommon.apsecurity.AlipayApSecurityService {
+    !private <fields>;
+    !private <methods>;
+}
+ 
+-keep class com.alipay.zoloz.toyger.bean.ToygerMetaInfo {
+    !private <fields>;
+    !private <methods>;
+}
+ 
+-keep class com.alipay.zoloz.toyger.algorithm.** { *; }
+ 
+-keep class com.alipay.zoloz.toyger.blob.** {
+    !private <fields>;
+    !private <methods>;
+}
+ 
+-keep class com.alipay.zoloz.toyger.face.** {
+    !private <fields>;
+    !private <methods>;
+}
+ 
+-keep class com.alipay.zoloz.hardware.camera.impl.** {
+    !private <fields>;
+    !private <methods>;
+}
+ 
+ 
+-keep public class com.alipay.mobile.security.zim.plugin.**{
+    public <fields>;
+    public <methods>;
+}
+ 
+-keep class * extends com.alipay.mobile.security.zim.gw.BaseGwService{
+    !private <fields>;
+    !private <methods>;
+}
+ 
+-keep class * extends com.alipay.mobile.security.bio.service.BioMetaInfo{
+    !private <fields>;
+    !private <methods>;
+}
+ 
+-keep class com.alipay.zoloz.toyger.workspace.FaceRemoteConfig{
+    *;
+}
+ 
+-keep public class com.alipay.zoloz.toyger.**{
+    *;
+}
+-keep public class com.alipay.mobile.security.zim.gw.**{
+    *;
+}
+
+
+```
 
