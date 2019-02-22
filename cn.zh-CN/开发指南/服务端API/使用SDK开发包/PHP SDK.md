@@ -296,32 +296,20 @@ if (1 == $statusCode or 2 == $statusCode) { //认证通过or认证不通过
 <?php
 include_once './aliyun-php-sdk-core/Config.php';
 include_once 'Guid.php'; //参见https://help.aliyun.com/document_detail/64081.html#guid
-use Cloudauth\Request\V20180504 as cloudauth; //请以实际目录为准
+use Cloudauth\Request\V20180916 as cloudauth; //请以实际目录为准
 //创建DefaultAcsClient实例并初始化
 $iClientProfile = DefaultProfile::getProfile(
-    "cn-hangzhou",            //默认
-    "YourAccessKeyID",        //您的Access Key ID
-    "YourAccessKeySecret");    //您的Access Key Secret
+"cn-hangzhou", //默认
+"YourAccessKeyID", //您的Access Key ID
+"YourAccessKeySecret"); //您的Access Key Secret
 $iClientProfile::addEndpoint("cn-hangzhou", "cn-hangzhou", "Cloudauth", "cloudauth.aliyuncs.com");
 $client = new DefaultAcsClient($iClientProfile);
 $biz = "YourRPMinBiz"; //您在控制台上创建的、采用RPMin认证方案的认证场景标识, 创建方法：https://help.aliyun.com/document_detail/59975.html
-$ticketId = guid();  //认证ID, 由使用方指定, 发起不同的认证任务需要更换不同的认证ID
-$token = null; //认证token, 表达一次认证会话
-//1. 服务端发起认证请求, 获取到token
-//GetVerifyToken接口文档：https://help.aliyun.com/document_detail/57050.html
-$getVerifyTokenRequest = new cloudauth\GetVerifyTokenRequest();
-$getVerifyTokenRequest->setBiz($biz);
-$getVerifyTokenRequest->setTicketId($ticketId);
-try {
-    $response = $client->getAcsResponse($getVerifyTokenRequest);
-    $token = $response->Data->VerifyToken->Token; //token默认30分钟时效，每次发起认证时都必须实时获取
-} catch (Exception $e) {
-    print $e->getTrace();
-}
-//2. 用token提交认证材料
-//SubmitMaterials接口文档：https://help.aliyun.com/document_detail/58176.html
-$submitRequest = new cloudauth\SubmitMaterialsRequest();
-$submitRequest->setVerifyToken($token);
+$ticketId = guid(); //认证ID, 由使用方指定, 发起不同的认证任务需要更换不同的认证ID
+//提交认证材料
+$submitRequest = new cloudauth\SubmitVerificationRequest();
+$submitRequest->setBiz($biz);
+$submitRequest->setTicketId($ticketId);
 //若使用base64上传图片, 需要设置请求方法为POST
 $submitRequest->setMethod("POST");
 $identificationNumber = array("MaterialType" => "IdentificationNumber", "Value" => "330110201711110101");
@@ -333,19 +321,12 @@ $idCardBackPic = array("MaterialType" => "IdCardBackPic", "Value" => "oss://veri
 $verifyMaterials = array($identificationNumber, $name, $facePic, $idCardFrontPic, $idCardBackPic);
 $submitRequest->setMaterials($verifyMaterials);
 try {
-    $SubmitMaterialsResponse = $client->getAcsResponse($submitRequest);
-    //由于审核需要时间，SubmitMaterials接口并不保证同步返回认证结果，可能会返回认证中状态, 此时需要使用GetStatus接口轮询认证结果。
-    //GetStatus接口文档：https://help.aliyun.com/document_detail/57049.html
-    //$getStatusRequest = new cloudauth\GetStatusRequest();
-    //$getStatusRequest->setBiz($biz);
-    //$getStatusRequest->setTicketId($ticketId);
-    //$response = $client->getAcsResponse($getStatusRequest);
-    //$statusCode = $response->Data->StatusCode;
-    //后续业务处理
+$SubmitResponse = $client->getAcsResponse($submitRequest);
+//后续业务处理
 } catch (ServerException $e) {
-    print $e->getMessage();
+print $e->getMessage();
 } catch (ClientException $e) {
-    print $e->getMessage();
+print $e->getMessage();
 }
 //常见问题：https://help.aliyun.com/document_detail/57640.html
 ```
