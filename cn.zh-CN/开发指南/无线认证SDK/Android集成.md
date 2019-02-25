@@ -62,12 +62,12 @@ Android SDK 与包名（package name）+签名（keystore）绑定，修改packa
 
  **关于 CPU 类型** 
 
-无线认证 SDK 目前支持 armeabi、armeabi-v7a、arm64-v8a 和 x86 四种，请接入方按需在build.gradle中增加abifilters配置。例如，接入方仅需要支持其中 armeabi、arm64-v8a 和 x86 三种，则配置如下：
+无线认证 SDK 目前支持 armeabi、armeabi-v7a、arm64-v8a，请接入方按需在build.gradle中增加abifilters配置。例如，接入方仅需要支持其中 armeabi 和 arm64-v8a，则配置如下：
 
 ```
 defaultConfig {
     ndk {
-        abiFilters "armeabi", "arm64-v8a", "x86"
+        abiFilters "armeabi", "arm64-v8a"
     }
 }
 ```
@@ -90,7 +90,7 @@ defaultConfig {
 
         如果在`project.properties`中指定了ProGuard配置（例如，在`project.properties`中包含`proguard.config=proguard.cfg`语句），则表明已使用 ProGuard 进行代码混淆，混淆配置在 proguard.cfg 文件中：
 
-        ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/13550/155047965514305_zh-CN.png)
+        ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/13550/155106104114305_zh-CN.png)
 
     -   **Android Studio**
 
