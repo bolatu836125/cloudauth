@@ -21,7 +21,7 @@
     -   ZolozIdentityManager.framework
     -   ZolozSensorServices.framework
     -   ZolozOpenPlatformBuild.framework
-    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/77354/154409051733785_zh-CN.png)
+    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/77489/155229616538885_zh-CN.png)
 
 3.  添加系统库。
 
@@ -43,7 +43,7 @@
     -   libc++.1.tbd
     -   libstdc++.6.0.9.tbd
     -   libc++abi.tbd
-    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/77354/154409051733787_zh-CN.png)
+    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/77489/155229616538886_zh-CN.png)
 
 4.  拷贝资源文件。
 
@@ -52,13 +52,11 @@
     -   APBToygerFacade.bundle：位于 APBToygerFacade.framework 中
     -   ToygerService.bundle：位于 ToygerService.framework 中
     -   BioAuthEngine.bundle：位于 BioAuthEngine.framework 中
-    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/77354/154409051733788_zh-CN.png)
+    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/77489/155229616538887_zh-CN.png)
 
 5.  链接器参数设置。
 
-    选择 **TARGETS**，单击 **Build Settings** 标签页，在 **Linking** 中设置 **Other linker flags** 值为 **-ObjC**。
-
-    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/77354/154409051733789_zh-CN.png)
+    选择 **TARGETS**，单击 **Build Settings** 标签页，在 **Linking** 中设置 **Other linker flags** 值为 **-ObjC**。 ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/77489/155229616538888_zh-CN.png)
 
 6.  调用 SDK。
     -   引入头文件。
