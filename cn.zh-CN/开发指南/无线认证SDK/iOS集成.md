@@ -39,9 +39,9 @@
     -   Libiconv.tbd
     -   Libc++.tbd
     -   Libz.tbd
-3.  在您的工程资源中（Copy Bundle Resource），引入无线认证SDK 包中的yw\_1222\_\*.jpg签名图片文件，以及resource目录下的FaceLivenessSDK.bundle和RPSDK.bundle文件。
+3.  在您的工程资源中（Copy Bundle Resources），引入无线认证SDK 包中的yw\_1222\_\*.jpg签名图片文件，以及resource目录下的FaceLivenessSDK.bundle和RPSDK.bundle文件。
 
-    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/13551/155298247214303_zh-CN.png)
+    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/13551/155298333014303_zh-CN.png)
 
 4.  编译选项：在工程的**Other Linker Flags**选项中添加**-ObjC**。
 
