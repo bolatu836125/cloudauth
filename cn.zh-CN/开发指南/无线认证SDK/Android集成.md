@@ -81,6 +81,12 @@ defaultConfig {
 <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 ```
 
+**关于应用主题配置**
+
+```
+<item name="android:windowIsTranslucent">false</item>
+```
+
 ## 步骤二： 添加 ProGuard 配置 { .section}
 
 如果您的应用使用了 ProGuard 进行代码混淆，为了保证实人认证服务需要的一些类不被混淆，需要在 ProGuard 配置文件中添加相关指令。
@@ -90,7 +96,7 @@ defaultConfig {
 
         如果在`project.properties`中指定了ProGuard配置（例如，在`project.properties`中包含`proguard.config=proguard.cfg`语句），则表明已使用 ProGuard 进行代码混淆，混淆配置在 proguard.cfg 文件中：
 
-        ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/13550/155106104114305_zh-CN.png)
+        ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/13550/155298246514305_zh-CN.png)
 
     -   **Android Studio**
 
@@ -160,10 +166,12 @@ defaultConfig {
 
 ## 常见问题 { .section}
 
--   调起无线认证SDK，进入认证页面展示“UNKNOWN\_ERROR”。
+-    调起无线认证SDK，进入认证页面展示“UNKNOWN\_ERROR”/“网络异常，请检查网络”。
 
-    **处理建议**：查看logcat，若 ErrorCode = 1208 或 1215 或 1411，说明当前开发包与在管理控制台下载 SDK 时上传包的`包名(package name)`或`签名(keystore)`不一致，请在管理控制台重新上传当前开发包，用新下载 SDK 中的yw\_1222\_\*.jpg签名图片文件替换开发包中原有的文件。
+    **处理建议**：查看logcat。
 
+    -   若SG ERROR = 1208、1215、1411，说明当前开发包与在管理控制台下载 SDK 时上传包的`包名(package name)`或`签名(keystore)`不一致。请在管理控制台重新上传当前开发包，用新下载 SDK 中的yw\_1222\_\*.jpg签名图片文件替换开发包中原有的文件。
+    -   若SG ERROR = 1412、1225，说明图片不存在，请确保res\\drawable\\目录下有正确的签名图片。
     **说明：** 工程上，通常对 IDE 中直接运行\(debug\)和正式打包\(release\)会配置不同的签名\(keystore\)，在 IDE 中直接编译运行的是 debug 包，其签名图片文件和 release 包是不同的。
 
 -   项目中之前引入的组件与无线认证 SDK 中的组件有重复，例如 SecurityGuardSDK、oss-android-sdk 等。
