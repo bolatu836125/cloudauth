@@ -39,16 +39,11 @@
     -   Libiconv.tbd
     -   Libc++.tbd
     -   Libz.tbd
-3.  在您的工程资源中，引入无线认证SDK 包中的yw\_1222\_\*.jpg签名图片文件，以及resource目录下的FaceLivenessSDK.bundle和RPSDK.bundle文件。
+3.  在您的工程资源中（Copy Bundle Resource），引入无线认证SDK 包中的yw\_1222\_\*.jpg签名图片文件，以及resource目录下的FaceLivenessSDK.bundle和RPSDK.bundle文件。
 
-    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/13551/154744852314303_zh-CN.png)
+    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/13551/155298247214303_zh-CN.png)
 
-4.  编译选项：
-
-    -   在工程的**Other Linker Flags**选项中添加**-ObjC**。
-    -   将**Enable Bitcode**设为**No**。
-    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/13551/154744852314304_zh-CN.png)
-
+4.  编译选项：在工程的**Other Linker Flags**选项中添加**-ObjC**。
 
 ## 步骤二： 使用SDK { .section}
 
@@ -88,8 +83,10 @@
 
 -   调起无线认证SDK，进入认证页面展示“网络异常，请检查网络”/“UNKNOWN\_ERROR”/空白。
 
-    **处理建议**：查看Xcode console，若SG ERROR = 1208或1215或1411，说明当前开发包与在管理控制台下载 SDK 时上传包的BundleID不一致，请在管理控制台重新上传当前开发包，用新下载 SDK 中的yw\_1222\_\*.jpg签名图片文件替换开发包中原有的文件。
+    **处理建议**：查看Xcode console。
 
+    -   若SG ERROR = 1208、1215、1411，说明当前开发包与在管理控制台下载 SDK 时上传包的BundleID不一致。请在管理控制台重新上传当前开发包，用新下载 SDK 中的yw\_1222\_\*.jpg签名图片文件替换开发包中原有的文件。
+    -   若SG ERROR = 1412、1225，说明图片不存在。请确保SDK 中的yw\_1222\_\*.jpg签名图片正确地引入到了Copy Bundle Resource 下。
 -   项目中之前引入的组件与无线认证 SDK 中的组件有重复，例如 SecurityGuardSDK、AliyunOSSiOS 等。
 
     **处理建议**：若SecurityGuardSDK组件有重复，删除低版本，但保留两个版本的yw\_1222\_\*.jpg签名图片文件；若 AliyunOSSiOS等其他组件有重复，删除低版本即可。
