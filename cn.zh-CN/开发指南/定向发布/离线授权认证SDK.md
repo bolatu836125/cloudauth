@@ -68,7 +68,7 @@
 
 ## 接入时序图 {#section_txc_3f4_hhb .section}
 
-![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154192/155437150143251_zh-CN.png)
+![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154192/155437244043251_zh-CN.png)
 
 时序图说明：
 
@@ -245,7 +245,7 @@
 VerifySDKManager.getInstance().setNeedNirLiveness(true). setNeedNirSeniorRecapCheck(true).setNirFrameH(nirFrameH).setNirFrameW(nirFrameW).setNirAngle(nirAngle).setRgbAngle(rgbAngle).setNirSocreThreshold(nirSocreThreshold).initWithToken(context, token, initWithTokenCallback);
 ```
 
-## SDK用户库操作 {#section_m4k_hk4_hhb .section}
+**SDK用户库操作**
 
 初始化成功后，如果要使用SDK的人脸1：N检索能力，需要进行相应用户库操作，向人脸库中添加人脸图片，否则人脸检索将无法匹配。
 
@@ -328,13 +328,13 @@ VerifySDKManager.getInstance().setNeedNirLiveness(true). setNeedNirSeniorRecapCh
     |errorCode|int|错误码，0为正确。|
 
 
-## 人脸识别 {#face .section}
+**人脸识别**
 
 **人脸1:1比对说明**
 
 SDK支持实时视频流和人脸图片进行比对，这是最为常见的1：1对比类型。针对一张事先获取的图片（通常为身份证芯片照、证件照片等），与摄像头实时采集的符合条件的人脸图片进行比对。通常适用于有人值守的场景。
 
-![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154192/155437150143274_zh-CN.png)
+![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154192/155437244043274_zh-CN.png)
 
 **人脸1：N检索**
 
@@ -342,7 +342,7 @@ SDK支持实时视频流和人脸图片进行比对，这是最为常见的1：1
 
 如果在初始化时设置开启了翻拍检测或红外活体检测，则摄像头采集的人脸图片必须同时通过活体检测，才能进入人脸检索环节，任一活体检测未通过，都不会进行人脸检索。
 
-![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154192/155437150243275_zh-CN.png)
+![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154192/155437244043275_zh-CN.png)
 
 -   **人脸1:1比对调用**
 
@@ -496,7 +496,7 @@ SDK支持实时视频流和人脸图片进行比对，这是最为常见的1：1
     |isMoving|boolean|人脸是否移动。|
 
 
-错误码
+SDK错误码
 
 |错误信息|错误描述|错误码|
 |----|----|---|
@@ -547,8 +547,8 @@ SDK支持实时视频流和人脸图片进行比对，这是最为常见的1：1
 
 **服务端接入准备**
 
--   [获取 AccessKey](cn.zh-CN/开发指南/服务端API/获取AccessKey.md#)
--   [API调用方式](cn.zh-CN/开发指南/服务端API/API调用方式.md#)
+-   [获取 AccessKey](https://help.aliyun.com/document_detail/63821.html)
+-   [API调用方式](https://help.aliyun.com/document_detail/60687.html)
 
 **接口描述**
 
