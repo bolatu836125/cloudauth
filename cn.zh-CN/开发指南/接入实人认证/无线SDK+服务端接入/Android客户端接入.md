@@ -5,21 +5,29 @@
 ## 操作步骤 {#section_cbs_bf4_1gb .section}
 
 1.  下载 Android SDK 及 Demo 工程。
-    -   Android SDK：[FaceVerifySDK\_Android\_3.0.zip](http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/108177/cn_zh/1550760945131/FaceVerifySDK_Android_3.0.zip)
+    -   Android SDK：[FaceVerifySDK\_Android-20190403.zip\(4 MB\)](http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/113697/cn_zh/1554788402387/FaceVerifySDK_Android-20190403.zip)
     -   Android Demo：[FaceDetectDemo-Android-master-20181121.zip](http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/97845/cn_zh/1542875137254/FaceDetectDemo-Android-master-20181121.zip)
 
         **说明：** 此 Android Demo 采用的是通过 gradle 拉取 maven 仓库下载 SDK，您可以修改为直接引入 SDK 的方式。
 
 2.  添加 SDK。
 
-    将下载的 SDK 解压后复制到项目下，并在 build.gradle 文件中增加以下依赖：
+    将下载的 SDK 解压后复制到项目下，并在build.gradle文件中增加以下依赖：
 
     ```
-    compile 'com.alipay.android.phone.zoloz:sdk:3.0.0.00000001@aar' 
-    compile 'com.alibaba:fastjson:1.1.45@jar' 
-    compile 'com.android.support:support-v4:26.0.0-alpha1' 
-    compile "com.alipay.android.phone:deviceid-release:6.0.2.20171228@aar"
-    
+    dependencies {
+        implementation 'com.android.support:appcompat-v7:25.3.1'
+        implementation "com.alibaba:fastjson:1.2.2@jar"
+        implementation "com.alipay.android.phone.zoloz:bio:7.1.0.00000001@aar"
+        implementation "com.alipay.android.phone.zoloz:hardware:7.1.0.00000001@aar"
+        implementation "com.alipay.android.phone.zoloz:toyger:7.1.0.00000001@aar"
+        implementation "com.alipay.android.phone.zoloz:zface:7.1.0.00000001@aar"
+        implementation "com.alipay.android.phone.zoloz:zim:7.1.0.00000001@aar"
+        implementation "com.alipay.android.phone.zoloz:releaseLoging:4.0.0.00000002@aar"
+        implementation "com.alipay.android.phone.zoloz:rpc:2.1.0.180302121215-ZOLOZ@aar"
+        implementation "com.alipay.android.phone.zoloz:zolozsdk:7.1.0.00000003@aar"
+        implementation "com.alipay.android.phone:deviceid-release:6.0.2.20171228@aar"
+    }
     ```
 
 3.  调用 SDK。
