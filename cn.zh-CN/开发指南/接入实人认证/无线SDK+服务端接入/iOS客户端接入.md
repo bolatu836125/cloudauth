@@ -5,23 +5,24 @@
 ## 操作步骤 {#section_y4z_x24_1gb .section}
 
 1.  下载 iOS SDK 及 Demo 工程。
-    -   iOS SDK：[FaceVerifySDK\_iOS\_3.0.zip](http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/97845/cn_zh/1542875200465/FaceVerifySDK_iOS_3.0.zip)
+    -   iOS SDK：[FaceVerifySDK\_iOS-20190327.zip\(25.2 MB\)](http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/113697/cn_zh/1554787504920/FaceVerifySDK_iOS-20190327.zip)
     -   iOS Demo：[FaceDetectDemo-iOS-master-20181121.zip](http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/97845/cn_zh/1542875168174/FaceDetectDemo-iOS-master-20181121.zip)
 2.  添加 SDK。
 
     在 **Apple Xcode** 中，选择 **TARGETS**，单击 **General** 标签页， 展开 **Linked Frameworks and Libraries** 列表，添加以下 Framework：
 
     -   APBToygerFacade.framework
-    -   ZolozMobileRPC.framework
     -   APPSecuritySDK.framework
     -   BioAuthAPI.framework
     -   BioAuthEngine.framework
     -   MPRemoteLogging.framework
     -   ToygerService.framework
     -   ZolozIdentityManager.framework
-    -   ZolozSensorServices.framework
+    -   ZolozMobileRPC.framework
     -   ZolozOpenPlatformBuild.framework
-    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/77489/155229616538885_zh-CN.png)
+    -   ZolozSensorServices.framework
+    -   ZolozUtility.framework
+    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/77489/155478903138885_zh-CN.png)
 
 3.  添加系统库。
 
@@ -43,7 +44,7 @@
     -   libc++.1.tbd
     -   libstdc++.6.0.9.tbd
     -   libc++abi.tbd
-    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/77489/155229616538886_zh-CN.png)
+    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/77489/155478903138886_zh-CN.png)
 
 4.  拷贝资源文件。
 
@@ -52,11 +53,11 @@
     -   APBToygerFacade.bundle：位于 APBToygerFacade.framework 中
     -   ToygerService.bundle：位于 ToygerService.framework 中
     -   BioAuthEngine.bundle：位于 BioAuthEngine.framework 中
-    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/77489/155229616538887_zh-CN.png)
+    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/77489/155478903138887_zh-CN.png)
 
 5.  链接器参数设置。
 
-    选择 **TARGETS**，单击 **Build Settings** 标签页，在 **Linking** 中设置 **Other linker flags** 值为 **-ObjC**。 ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/77489/155229616538888_zh-CN.png)
+    选择 **TARGETS**，单击 **Build Settings** 标签页，在 **Linking** 中设置 **Other linker flags** 值为 **-ObjC**。 ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/77489/155478903138888_zh-CN.png)
 
 6.  调用 SDK。
     -   引入头文件。
