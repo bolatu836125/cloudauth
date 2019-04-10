@@ -68,12 +68,12 @@
 
 ## 接入时序图 {#section_txc_3f4_hhb .section}
 
-![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154192/155437244043251_zh-CN.png)
+![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154192/155486816243251_zh-CN.png)
 
 时序图说明：
 
--   Step1~Step4：可选。若设备未激活（如首次使用SDK、设备刷机、恢复出厂设置等），则需要调用实人认证服务端接口CreateAuthKey获得授权token，再进行初始化。若设备已激活，则直接从step5开始，传入授权token进行SDK初始化。
--   Step5~Step6：调用SDK的initWithToken函数，传入授权token进行初始化，SDK会回调初始化结果。
+-   Step1~Step4：可选。若设备未激活（如首次使用SDK、设备刷机、恢复出厂设置等），则需要调用实人认证服务端接口CreateAuthKey获得授权key，再进行初始化。若设备已激活，则直接从step5开始，传入授权key进行SDK初始化。
+-   Step5~Step6：调用SDK的initWithToken函数，传入授权key进行初始化，SDK会回调初始化结果。
 -   Step7~Step8：可选。若使用人脸1：N检索，则需要进行用户库操作。若使用人脸1:1比对，则不需要该步骤。
 -   Step9~Step11：进行人脸比对或检索，其中活体检测（翻拍和红外活体）根据接入方需要可开启或关闭，比对/检索结果SDK会回调告知。
 
@@ -81,21 +81,21 @@
 
 **SDK下载**
 
-离线授权认证SDK暂未提供线上自助下载，若有使用需求，可联系阿里云客户经理咨询。
+-   通过服务端API接口进行下载，[下载离线授权认证SDK](#)。
 
 **SDK初始化及相关设置**
 
 接入方只需关注 SDK 提供的VerifySDKManager类，上层与 SDK 的交互都是通过VerifySDKManager进行调用。
 
-首次初始化时，授权token需要在初始化之前调用实人认证服务端接口CreateAuthKey申请获得。并且，使用initWithToken初始化方法，需要开启设备管理功能setNeedDeviceManage。
+首次初始化时，授权key需要在初始化之前调用实人认证服务端接口CreateAuthKey申请获得。并且，使用initWithToken初始化方法，需要开启设备管理功能setNeedDeviceManage。
 
 具体提供以下接口：
 
--   **使用授权token进行初始化**
+-   **使用授权key进行初始化**
 
     接口名：initWithToken
 
-    接口描述：使用授权token进行初始化，初始化结果通过回调告知。
+    接口描述：使用授权key，初始化结果通过回调告知。
 
     |名称|类型|描述|
     |--|--|--|
@@ -334,7 +334,7 @@ VerifySDKManager.getInstance().setNeedNirLiveness(true). setNeedNirSeniorRecapCh
 
 SDK支持实时视频流和人脸图片进行比对，这是最为常见的1：1对比类型。针对一张事先获取的图片（通常为身份证芯片照、证件照片等），与摄像头实时采集的符合条件的人脸图片进行比对。通常适用于有人值守的场景。
 
-![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154192/155437244043274_zh-CN.png)
+![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154192/155486816243274_zh-CN.png)
 
 **人脸1：N检索**
 
@@ -342,7 +342,7 @@ SDK支持实时视频流和人脸图片进行比对，这是最为常见的1：1
 
 如果在初始化时设置开启了翻拍检测或红外活体检测，则摄像头采集的人脸图片必须同时通过活体检测，才能进入人脸检索环节，任一活体检测未通过，都不会进行人脸检索。
 
-![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154192/155437244043275_zh-CN.png)
+![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154192/155486816243275_zh-CN.png)
 
 -   **人脸1:1比对调用**
 
@@ -529,13 +529,13 @@ SDK错误码
 |VERIFYSDK\_ERR\_CODE\_NOT\_SUPPORT\_DEVICE|不支持的硬件型号。|6000|
 |VERIFYSDK\_ERR\_CODE\_LOAD\_LIBARY\_FAILED|加载so失败。|6001|
 |VERIFYSDK\_ERR\_CODE\_LICENCE\_NOT\_EXIST|授权文件不存在。|6002|
-|VERIFYSDK\_ERR\_CODE\_SECURITY\_TOKEN\_SOCKET\_TIMEOUT|获取激活token超时，即初始化失败或未完成。|7001|
+|VERIFYSDK\_ERR\_CODE\_SECURITY\_TOKEN\_SOCKET\_TIMEOUT|获取激活key超时，即初始化失败或未完成。|7001|
 |VERIFYSDK\_ERR\_CODE\_GET\_STATIC\_DATA\_STORE\_COMP|SDK安全组件获取appkey失败。|7003|
 |VERIFYSDK\_ERR\_CODE\_GET\_SECURE\_SIGNATURE\_COMP|SDK安全组件获取加签失败。|7004|
 |VERIFYSDK\_ERR\_CODE\_SG\_SECEXCEPTION|SDK安全组件异常。|7002|
-|VERIFYSDK\_ERR\_CODE\_GET\_LICENSE\_INFO\_TOKEN\_NULL|带授权token激活时，token为空。|8001|
+|VERIFYSDK\_ERR\_CODE\_GET\_LICENSE\_INFO\_TOKEN\_NULL|带授权key激活时，key为空。|8001|
 |VERIFYSDK\_ERR\_CODE\_GET\_LICENSE\_INFO\_NATIVE\_FAILED|获取授权失败。|8002|
-|VERIFYSDK\_ERR\_CODE\_GET\_LICENSE\_CHARSETNAME\_EXCEPTION|授权token编码转换出错。|8003|
+|VERIFYSDK\_ERR\_CODE\_GET\_LICENSE\_CHARSETNAME\_EXCEPTION|授权key编码转换出错。|8003|
 |VERIFYSDK\_ERR\_CODE\_USER\_LIB\_NOT\_LOADED|人脸库还未初始化完成。|9001|
 |VERIFYSDK\_ERR\_CODE\_UNKNOWN|人脸模块未知错误。|9999|
 |VERIFYSDK\_ERR\_CODE\_ACTIVATE\_LICENSE\_REQUEST\_FAILED|请求失败，激活SDK失败。|10001|
@@ -550,70 +550,59 @@ SDK错误码
 -   [获取 AccessKey](https://help.aliyun.com/document_detail/63821.html)
 -   [API调用方式](https://help.aliyun.com/document_detail/60687.html)
 
-**接口描述**
+服务端接入提供以下接口：
 
-离线授权认证SDK在首次初始化时，需要接入方服务端提前调用该实人认证服务端接口，获取授权token，用于SDK激活。
+-   **下载离线授权认证SDK**
 
-接口名：CreateAuthKey
+    接口名：CreateVerifySDK
 
-请求方法：支持以HTTPS POST和GET方法发送请求。
+    接口描述：提交应用异步生成离线授权认证SDK。
 
-**请求参数**
+    请求方法：支持以HTTPS POST和GET方法发送请求。
 
-|名称|类型|参数位置|是否必需|描述|
-|--|--|----|----|--|
-|BizType|String|Query|否|业务类型，比如不同的人脸使用场景等，都可以通过该字段做备注。|
-|UserDeviceId|String|Query|否|用户设备ID。|
-|Test|Boolean|Query|否|测试标识。true表示使用测试授权，授权时长默认为30天；false表示授权时长根据AuthYears进行授权。|
-|AuthYears|Integer|Query|否|当Test标识为false或空时，AuthYears必填，单位为年，范围为\[1,100\]，取值100表示永久授权。|
+    |名称|类型|参数位置|是否必需|描述|
+    |--|--|----|----|--|
+    |Url|String|Query|是|接入方无线应用程序的可访问链接。|
 
-**返回参数**
+    |名称|类型|描述|
+    |--|--|--|
+    |TaskId|String|生成SDK的任务ID，用于查询SDK生成结果。|
 
-|名称|类型|描述|
-|--|--|--|
-|AuthKey|String|可用于授权激活的token。|
+-   **获取离线授权认证SDK的生成结果**
+
+    接口名：DescribeVerifySDK
+
+    接口描述：根据生成离线授权认证SDK的任务ID获取SDK生成结果。
+
+    |名称|类型|参数位置|是否必需|描述|
+    |--|--|----|----|--|
+    |TaskId|String|Query|是|生成SDK的任务ID。|
+
+    |名称|类型|描述|
+    |--|--|--|
+    |Url|String|SDK下载地址。不为空时，表示生成完成。|
+
+-   **申请授权key**
+
+    接口名：CreateAuthKey
+
+    接口描述：获取授权key，用于离线授权认证SDK激活。
+
+    请求方法：支持以HTTPS POST和GET方法发送请求。
+
+    |名称|类型|参数位置|是否必需|描述|
+    |--|--|----|----|--|
+    |BizType|String|Query|否|业务类型。不超过64字符。可用于对具体业务进行备注，如接入方不同的人脸使用场景等。建议传入该参数。|
+    |UserDeviceId|String|Query|否|用户设备ID。不超过64字符。可用于标识具体设备，建议可以使用设备物理编号。建议传入该参数。|
+    |Test|Boolean|Query|否|测试标识。为true表示使用测试授权，授权时长默认为30天；为false，则授权时长根据AuthYears进行授权。|
+    |AuthYears|Integer|Query|否|当Test标识为false或空时，AuthYears必填，单位为年，范围为\[1,100\]，取值100表示永久授权。|
+
+    |名称|类型|描述|
+    |--|--|--|
+    |AuthKey|String|可用于授权激活的key。|
+
 
 **示例**
 
 关于使用SDK开发包的示例，请参考以下具体SDK开发包中的离线授权认证SDK接入说明：[Java](cn.zh-CN/开发指南/服务端API/使用SDK开发包/Java SDK.md#)、[PHP](cn.zh-CN/开发指南/服务端API/使用SDK开发包/PHP SDK.md#)、[Python](cn.zh-CN/开发指南/服务端API/使用SDK开发包/Python SDK.md#)、[.NET](cn.zh-CN/开发指南/服务端API/使用SDK开发包/.NET SDK.md#)、[Node.js](cn.zh-CN/开发指南/服务端API/使用SDK开发包/Node.js SDK.md#)、[Go](cn.zh-CN/开发指南/服务端API/使用SDK开发包/Go SDK.md#)。
-
-以下是拼接HTTPS请求的相关示例：
-
-请求示例
-
-```
-https://cloudauth.aliyuncs.com/?Action=CreateAuthKey
-&BizType=FACE_TEST
-&UserDeviceId=3iJ1AY$oHcu7mC69
-&Test=false
-&AuthYears=1
-&<[公共请求参数]>
-```
-
-返回示例
-
--   XML格式
-
-    ```
-    <?xml version='1.0' encoding='UTF-8'?>
-    <CreateAuthKeyResponse>
-        <Data>
-            <AuthKey>auth.1KQMcnLd4m37LN2D0F0WCD-1qtQI$</AuthKey>
-        </Data>
-        <Success>true</Success>
-        <Code>1</Code>
-    </CreateAuthKeyResponse>
-    ```
-
--   JSON格式
-
-    ```
-    {
-      "Data": {
-        "AuthKey":auth.1KQMcnLd4m37LN2D0F0WCD-1qtQI$
-      },
-      "Success": true
-    }
-    ```
-
 
