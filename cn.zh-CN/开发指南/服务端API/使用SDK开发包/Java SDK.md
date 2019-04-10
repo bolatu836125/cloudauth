@@ -24,7 +24,7 @@
 <dependency>
     <groupId>com.aliyun</groupId>
     <artifactId>aliyun-java-sdk-cloudauth</artifactId>
-    <version>1.1.5</version>
+    <version>1.3.0</version>
 </dependency>
 ```
 
@@ -318,65 +318,45 @@ if( 1 == statusCode || 2 == statusCode ) { //认证通过or认证不通过
 ```
 //创建DefaultAcsClient实例并初始化
 DefaultProfile profile = DefaultProfile.getProfile(
-        "cn-hangzhou",             //默认
-        "YourAccessKeyID",         //您的Access Key ID
-        "YourAccessKeySecret");    //您的Access Key Secret
+"cn-hangzhou", //默认
+"YourAccessKeyID", //您的Access Key ID
+"YourAccessKeySecret"); //您的Access Key Secret
 IAcsClient client = new DefaultAcsClient(profile);
 String biz = "YourRPMinBiz"; //您在控制台上创建的、采用RPMin认证方案的认证场景标识, 创建方法：https://help.aliyun.com/document_detail/59975.html
 String ticketId = UUID.randomUUID().toString(); //认证ID, 由使用方指定, 发起不同的认证任务需要更换不同的认证ID
-String token = null; //认证token, 表达一次认证会话
-//1. 发起认证请求, 获取到token
-//GetVerifyToken接口文档：https://help.aliyun.com/document_detail/57050.html
-GetVerifyTokenRequest getVerifyTokenRequest = new GetVerifyTokenRequest();
-getVerifyTokenRequest.setBiz(biz); //传入采用RPMin认证方案的认证场景标识(biz)
-getVerifyTokenRequest.setTicketId(ticketId);
-try {
-    GetVerifyTokenResponse response = client.getAcsResponse(getVerifyTokenRequest);
-    token = response.getData().getVerifyToken().getToken(); //token默认30分钟时效，每次发起认证时都必须实时获取
-} catch (Exception e) {
-    e.printStackTrace();
-}
-//2. 用token提交认证材料
-//SubmitMaterials接口文档：https://help.aliyun.com/document_detail/58176.html
-SubmitMaterialsRequest submitRequest = new SubmitMaterialsRequest();
-submitRequest.setVerifyToken(token);
-submitRequest.setMethod(MethodType.POST);
+//提交认证材料
+SubmitVerificationRequest submitRequest = new SubmitVerificationRequest();
+submitRequest.setBiz(biz);
+submitRequest.setTicketId(ticketId);
 //创建要提交的认证材料列表, 请根据 认证方案 中的说明传入相应字段
-List<SubmitMaterialsRequest.Material> verifyMaterials = new ArrayList<SubmitMaterialsRequest.Material>();
-SubmitMaterialsRequest.Material identificationNumber = new SubmitMaterialsRequest.Material();
+List<SubmitVerificationRequest.Material> verifyMaterials = new ArrayList<SubmitVerificationRequest.Material>();
+SubmitVerificationRequest.Material identificationNumber = new SubmitVerificationRequest.Material();
 identificationNumber.setMaterialType("IdentificationNumber");
 identificationNumber.setValue("330110201711110101");
 verifyMaterials.add(identificationNumber);
-SubmitMaterialsRequest.Material name = new SubmitMaterialsRequest.Material();
+SubmitVerificationRequest.Material name = new SubmitVerificationRequest.Material();
 name.setMaterialType("Name");
 name.setValue("张三");
 verifyMaterials.add(name);
 //传入图片资料，请控制单张图片大小在 2M 内，避免拉取超时
-SubmitMaterialsRequest.Material facePic = new SubmitMaterialsRequest.Material();
+SubmitVerificationRequest.Material facePic = new SubmitVerificationRequest.Material();
 facePic.setMaterialType("FacePic");
 facePic.setValue("base64://iVBORw0KGgoA..."); //base64方式上传图片, 格式为"base64://图片base64字符串", 以"base64://"开头且图片base64字符串去掉头部描述(如"data:image/png;base64,"), 并注意控制接口请求的Body在8M以内
 verifyMaterials.add(facePic);
-SubmitMaterialsRequest.Material idCardFrontPic = new SubmitMaterialsRequest.Material();
+SubmitVerificationRequest.Material idCardFrontPic = new SubmitVerificationRequest.Material();
 idCardFrontPic.setMaterialType("IdCardFrontPic");
 idCardFrontPic.setValue("http://image-demo.img-cn-hangzhou.aliyuncs.com/example.jpg"); //http方式上传图片, 此http地址须可公网访问
 verifyMaterials.add(idCardFrontPic);
-SubmitMaterialsRequest.Material idCardBackPic = new SubmitMaterialsRequest.Material();
+SubmitVerificationRequest.Material idCardBackPic = new SubmitVerificationRequest.Material();
 idCardBackPic.setMaterialType("IdCardBackPic");
 idCardBackPic.setValue("oss://verify-img:715559d76a40774OSS.JPG"); //oss方式上传图片, 此oss文件地址须可公开访问
 verifyMaterials.add(idCardBackPic);
 submitRequest.setMaterials(verifyMaterials);
 try {
-    SubmitMaterialsResponse response = client.getAcsResponse(submitRequest);
-    //由于审核需要时间，SubmitMaterials接口并不保证同步返回认证结果，可能会返回认证中状态, 此时需要使用GetStatus接口轮询认证结果。
-    //GetStatus接口文档：https://help.aliyun.com/document_detail/57049.html
-    //GetStatusRequest getStatusRequest = new GetStatusRequest();
-    //getStatusRequest.setBiz(biz);
-    //getStatusRequest.setTicketId(ticketId);
-    //GetStatusResponse response = client.getAcsResponse(getStatusRequest);
-    //int statusCode = response.getData().getStatusCode();
-    //后续业务处理
+SubmitVerificationResponse response = client.getAcsResponse(submitRequest);
+//后续业务处理
 } catch (Exception e) {
-    e.printStackTrace();
+e.printStackTrace();
 }
 //常见问题：https://help.aliyun.com/document_detail/57640.html
 ```
@@ -409,5 +389,59 @@ try {
     e.printStackTrace();
 }
 //常见问题：https://help.aliyun.com/document_detail/57640.html
+```
+
+## 离线授权认证SDK下载示例 {#section_p3g_chm_jhb .section}
+
+```
+DefaultProfile profile = DefaultProfile.getProfile(
+"cn-hangzhou", // 可用区域id，目前只支持cn-hangzhou
+"your access key id", // 您的Access Key ID
+"your access secret"); // 您的Access Key Secret
+DefaultProfile.addEndpoint("cn-hangzhou", "Cloudauth", "cloudauth.aliyuncs.com"); //手动添加域名
+client = new DefaultAcsClient(profile);
+
+try {
+CreateVerifySDKRequest createRequest = new CreateVerifySDKRequest();
+createRequest.setAppUrl("https://app"); //app的可访问地址
+CreateVerifySDKResponse createResponse = client.getAcsResponse(createRequest);
+String taskId = createResponse.getTaskId(); //获取生成sdk任务的taskId
+String sdkUrl = null;
+do {
+//使用taskId轮询结果，一般生成可以在1分钟内完成
+Thread.sleep(TimeUnit.SECONDS.toMillis(15));
+DescribeVerifySDKRequest request = new DescribeVerifySDKRequest();
+request.setTaskId(taskId);
+DescribeVerifySDKResponse describeVerifySDKResponse = null;
+describeVerifySDKResponse = client.getAcsResponse(request);
+sdkUrl = describeVerifySDKResponse.getSdkUrl();
+} while (sdkUrl != null && !sdkUrl.isEmpty());
+//sdkUrl为生成的sdk可访问链接，下载后进行集成
+} catch (ClientException e) {
+//生成异常
+} catch (InterruptedException e) {
+
+}
+```
+
+## 离线授权认证SDK获取授权key示例 {#section_jcg_hhm_jhb .section}
+
+```
+DefaultProfile profile = DefaultProfile.getProfile(
+"cn-hangzhou", // 可用区域id，目前只支持cn-hangzhou
+"your access key id", // 您的Access Key ID
+"your access secret"); // 您的Access Key Secret
+DefaultProfile.addEndpoint("cn-hangzhou", "Cloudauth", "cloudauth.aliyuncs.com"); //手动添加域名
+client = new DefaultAcsClient(profile);
+
+//发起获取授权key的请求
+CreateAuthKeyRequest request = new CreateAuthKeyRequest();
+request.setTest(Boolean.FALSE); //测试标识
+request.setAuthYears(1);//授权年限
+request.setBizType("biz type"); //业务类型
+request.setUserDeviceId("device id"); //可自定义的用户设备id
+CreateAuthKeyResponse createAuthKeyResponse = client.getAcsResponse(request);
+String authKey = createAuthKeyResponse.getAuthKey();
+//获取到授权key调用离线授权认证SDK的initWithToken进行设备激活
 ```
 
