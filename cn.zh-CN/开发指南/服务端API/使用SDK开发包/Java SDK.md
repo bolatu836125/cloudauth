@@ -415,7 +415,7 @@ request.setTaskId(taskId);
 DescribeVerifySDKResponse describeVerifySDKResponse = null;
 describeVerifySDKResponse = client.getAcsResponse(request);
 sdkUrl = describeVerifySDKResponse.getSdkUrl();
-} while (sdkUrl != null && !sdkUrl.isEmpty());
+} while (sdkUrl == null || sdkUrl.isEmpty());
 //sdkUrl为生成的sdk可访问链接，下载后进行集成
 } catch (ClientException e) {
 //生成异常
