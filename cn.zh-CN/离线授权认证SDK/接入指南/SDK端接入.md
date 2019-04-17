@@ -24,17 +24,13 @@
 
 ## 步骤一：SDK下载 {#section_7ib_eol_14a .section}
 
-离线授权认证SDK可通过服务端接口进行下载，具体参看[下载离线授权认证SDK](cn.zh-CN/离线授权认证SDK/接入指南/服务端接入.md#section_tg5_p2n_jhb)。
+离线授权认证SDK可通过服务端接口进行下载，具体参看[下载离线授权认证SDK](cn.zh-CN/离线授权认证SDK/接入指南/服务端接入/API接口/下载离线授权认证SDK.md#)。
 
 ## 步骤二：在工程中导入SDK {#section_sy9_djc_j3s .section}
 
 解压离线授权认证SDK包，将以下Android依赖包引入到您的应用工程中：
 
--   libverifysdk.so
--   libverifyfacesdk.so
--   libnirlivenesssdk.so
--   liballmodel.so
--   libAliNN.so
+-   verifysdk-2.0.1.3-20190329-model-release.aar
 -   SecurityBodySDK-external-release.aar
 -   SecurityGuardSDK-external-release.aar
 
@@ -53,14 +49,14 @@
 2.  设定引入的本地库所在路径，将需要引入的依赖包都放在../libs目录，包含所有需要的库。
 3.  在gradle文件中引入以下需要的库依赖：
 
-    **说明：** 未来各依赖库的版本号会有所变化，实际版本号以下载到的SDK为准。
-
     ``` {#codeblock_3fj_uqn_7h2}
     compile (name:'verifysdk-2.0.1.3-20190329-model-release',ext:'aar')
     compile (name:'SecurityGuardSDK-external-release-5.4.121',ext:'aar')
      compile (name:'SecurityBodySDK-external-release-5.4.79',ext:'aar')
     						
     ```
+
+    **说明：** 未来各依赖库的版本号会有所变化，实际版本号以下载到的SDK为准。
 
 
 **关于SDK签名图片** 
@@ -75,7 +71,7 @@
 
 -   离线授权认证SDK会与APP包名（package name）+签名（keystore）绑定，所以若APP的package name或keystore有变化都需要重新下载SDK，若无变化，则不需要重新下载。
 
-**关于 CPU 类型**
+**关于 ABI 类型**
 
 离线授权认证SDK 目前支持 armeabi、armeabi-v7a、arm64-v8a，请接入方按需在build.gradle中增加abifilters配置。例如，接入方仅需要支持其中 armeabi 和 arm64-v8a，则配置如下：
 
@@ -106,7 +102,7 @@ defaultConfig {
 
     示例代码：
 
-    ``` {#codeblock_a8w_epx_krp}
+    ``` {#codeblock_3ls_3hi_6a5}
     VerifySDKManager.getInstance().setNeedDeviceManage(true);
     ```
 
@@ -126,29 +122,25 @@ defaultConfig {
 
     示例代码：
 
-    ``` {#codeblock_ea4_nek_t3x}
+    ``` {#codeblock_eg3_7vq_fs3}
     // 初始化结果字段
     private int regCode = -1;
-    
     // 回调函数
     private InitWithTokenCallback initWithTokenCallback = new InitWithTokenCallback(){
-    
         @Override
         public void onInitResult(int code) {
             regCode = code;
             Log.i("initData","return code: " + code);
         }
     };
-    
-    
     // activity onCreate方法中进行SDK初始化
-    VerifySDKManager.getInstance().setNeedDeviceManage(true);                VerifySDKManager.getInstance().initWithToken(getApplicationContext(),"",initWithTokenCallback);
+    VerifySDKManager.getInstance().setNeedDeviceManage(true);
+    VerifySDKManager.getInstance().initWithToken(getApplicationContext(),"",initWithTokenCallback);
     if(regCode !=0){
           // TODO 调用接入方服务端，服务端通过调用实人认证服务端接口CreateAuthKey获取
           // String token = 
     VerifySDKManager.getInstance().initWithToken(getApplicationContext(),token,initWithTokenCallback);
-      }
-    							
+      }						
     ```
 
     SDK提供相关设置函数，可以修改人脸检测的最小尺寸、是否开启翻拍检测、是否开启红外活体检测、设置翻拍检测阈值、设置红外活体阈值、设置人脸检索匹配阈值等，接入方可以按需设置。
@@ -163,9 +155,9 @@ defaultConfig {
     |--|--|--|
     |minFaceDetectSize|float|人脸检测的最小尺寸，取值范围0-1，定义为占图像min\(宽，高）的比例，默认值0.1。|
 
-    实例代码：
+    示例代码：
 
-    ``` {#codeblock_qu4_nc9_qax}
+    ``` {#codeblock_8of_zzo_4wn}
     VerifySDKManager.getInstance().setMinFaceDetectSize(0.05f);
     ```
 
@@ -184,7 +176,7 @@ defaultConfig {
 
     示例代码：
 
-    ``` {#codeblock_9oo_kpx_89h}
+    ``` {#codeblock_o4c_yxc_xee}
     VerifySDKManager.getInstance().setBorders(0.1f,0.9f,0.1f,0.9f);
     ```
 
@@ -200,7 +192,7 @@ defaultConfig {
 
     示例代码：
 
-    ``` {#codeblock_09y_qxo_cy5}
+    ``` {#codeblock_ovc_2he_u0e}
     VerifySDKManager.getInstance().setNeedRecapCheck(true);
     ```
 
@@ -216,7 +208,7 @@ defaultConfig {
 
     示例代码：
 
-    ``` {#codeblock_pvb_xhh_4i5}
+    ``` {#codeblock_oge_ps6_juc}
     VerifySDKManager.getInstance().needNirSeniorRecapCheck(true);
     ```
 
@@ -232,7 +224,7 @@ defaultConfig {
 
     示例代码：
 
-    ``` {#codeblock_w4q_7iw_pmi}
+    ``` {#codeblock_yvu_905_2n5}
     VerifySDKManager.getInstance().needNirLiveness(true).setNirAngle(0).setNirFrameH(480).setNirFrameW(640).setRgbAngle(0).init(getApplicationContext());
     ```
 
@@ -288,7 +280,7 @@ defaultConfig {
 
     示例代码：
 
-    ``` {#codeblock_oz7_7li_3nl}
+    ``` {#codeblock_yl4_z7d_543}
     VerifySDKManager.getInstance().setRecapThreshold(80f);
     ```
 
@@ -304,7 +296,7 @@ defaultConfig {
 
     示例代码：
 
-    ``` {#codeblock_xii_qs9_osa}
+    ``` {#codeblock_hei_wwh_ziy}
     VerifySDKManager.getInstance().setNirScoreThreshold(0f);
     ```
 
@@ -320,7 +312,7 @@ defaultConfig {
 
     示例代码：
 
-    ``` {#codeblock_9xi_jao_bww}
+    ``` {#codeblock_hqw_2sr_ur6}
     VerifySDKManager.getInstance().setFaceMatchThreshold(0f);
     ```
 
@@ -343,7 +335,7 @@ defaultConfig {
 
     示例代码：
 
-    ``` {#codeblock_yqa_8xz_rh6}
+    ``` {#codeblock_q97_23f_owx}
     // 加载用户数据到内存
     VerifySDKManager.getInstance().loadUserLib(verifyLibEventListener);
     							
@@ -365,7 +357,7 @@ defaultConfig {
 
     示例代码：
 
-    ``` {#codeblock_w15_5b8_h4y}
+    ``` {#codeblock_0ic_s4w_n92}
     VerifySDKManager.getInstance().addUser(true, String.valueOf(i), Type.BIOLOGY_FACE,FileUtil.getFileBuffer(path),verifyLibEventListener);
     ```
 
@@ -383,7 +375,7 @@ defaultConfig {
 
     示例代码：
 
-    ``` {#codeblock_k19_qs4_iu2}
+    ``` {#codeblock_d4s_v4f_32m}
     VerifySDKManager.getInstance().removeUser(false,id,verifyLibEventListener);
     ```
 
@@ -400,7 +392,7 @@ defaultConfig {
 
     示例代码：
 
-    ``` {#codeblock_c9y_8dg_6w9}
+    ``` {#codeblock_6u6_6md_cvj}
     VerifySDKManager.getInstance().clearUserLib(false,verifyLibEventListener);
     ```
 
@@ -437,24 +429,21 @@ defaultConfig {
 
     示例代码：
 
-    ``` {#codeblock_g1t_myw_y3h}
+    ``` {#codeblock_64o_aia_2sw}
     // 用户库操作回调
     final VerifySDKManager.VerifyLibEventListener verifyLibEventListener = new VerifySDKManager.VerifyLibEventListener() {
             @Override
             public void onSingleUserLibUpdate(String id, final int errorCode) {
     		//TODO 单用户更新操作完成后处理
             }
-    
             @Override
             public void onBatchUserLibUpdate(int errorCode) {
     		//TODO 批量用户更新，暂时不支持
             }
-    
             @Override
             public void onUserLibLoaded(int errorCode) {
     		//TODO loadUserLib操作完成后处理
             }
-    
             @Override
             public void onUserLibEmpty(int errorCode) {
     		//TODO clearUserLib操作完成后处理
@@ -470,11 +459,15 @@ defaultConfig {
 
 SDK支持实时视频流和人脸图片进行比对，这是最为常见的1：1对比类型。针对一张事先获取的图片（通常为身份证芯片照、证件照片等），与摄像头实时采集的符合条件的人脸图片进行比对。通常适用于有人值守的场景。
 
+![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154180/155549119044662_zh-CN.png)
+
 **人脸1：N检索**
 
 将需要识别的人脸图片注册到本地人脸库中，当有用户需要识别身份时，从视频流中实时采集符合条件的人脸图片，与人脸库中的人脸集合比对，得到检索结果。如果是无人值守的情况，建议可以开启翻拍检测或红外活体保障安全性。
 
 如果在初始化时设置开启了翻拍检测或红外活体检测，则摄像头采集的人脸图片必须同时通过活体检测，才能进入人脸检索环节，任一活体检测未通过，都不会进行人脸检索。
+
+![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154180/155549119044663_zh-CN.png)
 
 -   **人脸1:1比对调用** 
 
@@ -493,7 +486,7 @@ SDK支持实时视频流和人脸图片进行比对，这是最为常见的1：1
 
     示例代码：
 
-    ``` {#codeblock_ejn_b62_rtr}
+    ``` {#codeblock_gnj_jmg_8et}
     //1:1匹配后的回调
     VerifySDKManager.FaceMatchWithImageListener faceMatchWithImageListener = new
     VerifySDKManager.FaceMatchWithImageListener() {
@@ -502,7 +495,6 @@ SDK支持实时视频流和人脸图片进行比对，这是最为常见的1：1
          //TODO 与目标图片匹配后的处理
     }
     };
-    
     //1:1比对调用
     VerifySDKManager.getInstance().doFaceMatchWithImage(data,width, height,cameraRotation,data, faceMatchWithImageListener)
     							
@@ -518,182 +510,167 @@ SDK支持实时视频流和人脸图片进行比对，这是最为常见的1：1
     |--|--|--|
     |result|FaceMatchResult|人脸1:1比对结果。|
 
-    代码示例：见上述”人脸1:1比对调用”代码示例。
+    示例代码：见上述”人脸1:1比对调用”代码示例。
 
 -   **人脸1:N检索调用** 
+    -   接口名：feedPreviewFrame
 
-    接口名：feedPreviewFrame
+        接口描述：RGB摄像头帧数据与人脸库进行1：N检索，结果以回调方式通知。适用于设备上只有RGB单目摄像头，或者有双目摄像头但未开启红外活体检测的情况，可以使用该接口进行检索比对。
 
-    接口描述：RGB摄像头帧数据与人脸库进行1：N检索，结果以回调方式通知。适用于设备上只有RGB单目摄像头，或者有双目摄像头但未开启红外活体检测的情况，可以使用该接口进行检索比对。
+        |名称|类型|描述|
+        |--|--|--|
+        |data|byte\[\]|检测到合格人脸时的RGB帧数据。|
+        |width|int|帧数据宽度。|
+        |height|int|帧数据高度。|
+        |imageFormat|int|帧数据格式，Android默认选择ImageFormat.NV21。|
+        |imageAngle|int|读取到合格人脸时的图片旋转角度，取值0/90/180/270，从摄像头的回调接口中获取。|
+        |cameraRotation|int|读取到合格人脸时的相机旋转角度，取值0/90/180/270，从摄像头的回调接口中获取。|
+        |faceDetectWithMatchListener|FaceDetectWithMatchListener|人脸检测、检索比对、翻拍检测回调。|
 
-    |名称|类型|描述|
-    |--|--|--|
-    |data|byte\[\]|检测到合格人脸时的RGB帧数据。|
-    |width|int|帧数据宽度。|
-    |height|int|帧数据高度。|
-    |imageFormat|int|帧数据格式，Android默认选择ImageFormat.NV21。|
-    |imageAngle|int|读取到合格人脸时的图片旋转角度，取值0/90/180/270，从摄像头的回调接口中获取。|
-    |cameraRotation|int|读取到合格人脸时的相机旋转角度，取值0/90/180/270，从摄像头的回调接口中获取。|
-    |faceDetectWithMatchListener|FaceDetectWithMatchListener|人脸检测、检索比对、翻拍检测回调。|
+        示例代码：
 
-    示例代码：
+        ``` {#codeblock_71m_fqp_kyf}
+        // 当未开启红外活体功能时，使用FaceDetectWithMatchListener类型做回调
+        final VerifySDKManager.FaceDetectWithMatchListener
+        faceDetectListener = new VerifySDKManager. FaceDetectWithMatchListener () {
+                @Override
+                public void onFaceDetected(byte[] data, final int width, final int height, int imageFormat, int imageAngle, int cameraRotation, final FaceInfo faceInfo) {
+        	//TODO 识别到人脸时
+                }
+                @Override
+                public void onNofaceDetected(byte[] data, int width, int height, int imageFormat, int imageAngle, int cameraRotation) {
+        	//TODO 没有识别到人脸时
+                }
+                @Override
+                public void onFaceMatched(byte[] data, int width, int height, int imageAngle, int cameraRotation, final FaceMatchResult matchResult, final long costTime) {
+        	//TODO 识别到人脸并在用户库中匹配用户
+                }
+                @Override
+                public void onRecapDetected(byte[] data, int width, int height, int imageAngle, int cameraRotation, float recapScore) {
+        	//TODO 检查到人脸翻拍
+                }
+                @Override
+                public void onFaceMoving(boolean isMoving) {
+        	//TODO 检查到人脸移动
+                }
+        //1：N检索接口调用，不带红外活体
+        VerifySDKManager.getInstance().feedPreviewFrame(data,width, height,ImageFormat.NV21,degree,cameraRotation, faceDetectWithMatchListener);
+        							
+        ```
 
-    ``` {#codeblock_eic_56l_iql}
-    // 当未开启红外活体功能时，使用FaceDetectWithMatchListener类型做回调
-    final VerifySDKManager.FaceDetectWithMatchListener
-    faceDetectListener = new VerifySDKManager. FaceDetectWithMatchListener () {
-            @Override
-            public void onFaceDetected(byte[] data, final int width, final int height, int imageFormat, int imageAngle, int cameraRotation, final FaceInfo faceInfo) {
-    	//TODO 识别到人脸时
-            }
-    
-            @Override
-            public void onNofaceDetected(byte[] data, int width, int height, int imageFormat, int imageAngle, int cameraRotation) {
-    	//TODO 没有识别到人脸时
-            }
-    
-            @Override
-            public void onFaceMatched(byte[] data, int width, int height, int imageAngle, int cameraRotation, final FaceMatchResult matchResult, final long costTime) {
-    	//TODO 识别到人脸并在用户库中匹配用户
-            }
-    
-            @Override
-            public void onRecapDetected(byte[] data, int width, int height, int imageAngle, int cameraRotation, float recapScore) {
-    	//TODO 检查到人脸翻拍
-            }
-    
-            @Override
-            public void onFaceMoving(boolean isMoving) {
-    	//TODO 检查到人脸移动
-            }
-    
-    //1：N检索接口调用，不带红外活体
-    VerifySDKManager.getInstance().feedPreviewFrame(data,width, height,ImageFormat.NV21,degree,cameraRotation, faceDetectWithMatchListener);
-    							
-    ```
+    -   接口名：feedPreviewFrameWithNir
 
-    接口名：feedPreviewFrameWithNir
+        接口描述：RGB和红外摄像头帧数据与人脸库进行1：N检索，结果以回调方式通知。适用于设备上有双目红外的摄像头，在开启红外活体检测的情况下，可以使用该接口进行检索比对。
 
-    接口描述：RGB和红外摄像头帧数据与人脸库进行1：N检索，结果以回调方式通知。适用于设备上有双目红外的摄像头，在开启红外活体检测的情况下，可以使用该接口进行检索比对。
+        |名称|类型|描述|
+        |--|--|--|
+        |nirData|byte\[\]|检测到合格人脸时的红外帧数据。|
+        |rgbData|byte\[\]|检测到合格人脸时的RGB帧数据。|
+        |width|int|RGB帧数据宽度。|
+        |height|int|RGB帧数据高度。|
+        |imageFormat|int|帧数据格式，Android默认选择ImageFormat.NV21。|
+        |imageAngle|int|读取到合格人脸时的图片旋转角度，取值0/90/180/270，从摄像头的回调接口中获取。|
+        |cameraRotation|int|读取到合格人脸时的相机旋转角度，取值0/90/180/270，从摄像头的回调接口中获取。|
+        |nirFaceDetectListener|FaceMatchWithImageListener|人脸检测、检索比对、翻拍检测回调。|
 
-    |名称|类型|描述|
-    |--|--|--|
-    |nirData|byte\[\]|检测到合格人脸时的红外帧数据。|
-    |rgbData|byte\[\]|检测到合格人脸时的RGB帧数据。|
-    |width|int|RGB帧数据宽度。|
-    |height|int|RGB帧数据高度。|
-    |imageFormat|int|帧数据格式，Android默认选择ImageFormat.NV21。|
-    |imageAngle|int|读取到合格人脸时的图片旋转角度，取值0/90/180/270，从摄像头的回调接口中获取。|
-    |cameraRotation|int|读取到合格人脸时的相机旋转角度，取值0/90/180/270，从摄像头的回调接口中获取。|
-    |nirFaceDetectListener|FaceMatchWithImageListener|人脸检测、检索比对、翻拍检测回调。|
+        示例代码：
 
-    示例代码：
-
-    ``` {#codeblock_f89_24t_1f1}
-    //当开启红外检测时，使用NirFaceDetectListener类型做回调
-    final VerifySDKManager.NirFaceDetectListener nirFaceDetectListener = new VerifySDKManager.NirFaceDetectListener() {
-            @Override
-            public void onFaceDetected(byte[] data, final int width, final int height, int imageFormat, int imageAngle, int cameraRotation, final FaceInfo faceInfo) {
-    	//TODO 识别到人脸时
-            }
-    
-            @Override
-            public void onNofaceDetected(byte[] data, int width, int height, int imageFormat, int imageAngle, int cameraRotation) {
-    	//TODO 没有识别到人脸时
-            }
-    
-            @Override
-            public void onFaceMatched(byte[] data, int width, int height, int imageAngle, int cameraRotation, final FaceMatchResult matchResult, final long costTime) {
-    	//TODO 识别到人脸并在用户库中匹配用户
-            }
-    
-            @Override
-            public void onRecapDetected(byte[] data, int width, int height, int imageAngle, int cameraRotation, float recapScore) {
-    	//TODO 检查到人脸翻拍
-            }
-    
-            @Override
-            public void onFaceMoving(boolean isMoving) {
-    	//TODO 检查到人脸移动
-            }
-    
-            @Override
-            public void onFaceDetectedInNIR(byte[] nirData, int width, int height, int nirAngle, NirFaceInfo nirFaceInfo){
-                //TODO 红外摄像头检查到人脸
-            }
-    
-            @Override
-            public void onNofaceDetectedInNIR(byte[] nirData, int width, int height, int nirAngle){
-    	//TODO 红外摄像头没有检查到人脸
-            }
-        };
-    
-    //1：N检索接口调用，带红外活体
-    VerifySDKManager.getInstance().feedPreviewFrameWithNir(nirData,data,width, height,ImageFormat.NV21,degree,cameraRotation,nirFaceDetectListener);
-    							
-    ```
+        ``` {#codeblock_0z9_62o_11y}
+        //当开启红外检测时，使用NirFaceDetectListener类型做回调
+        final VerifySDKManager.NirFaceDetectListener nirFaceDetectListener = new VerifySDKManager.NirFaceDetectListener() {
+                @Override
+                public void onFaceDetected(byte[] data, final int width, final int height, int imageFormat, int imageAngle, int cameraRotation, final FaceInfo faceInfo) {
+        	//TODO 识别到人脸时
+                }
+                @Override
+                public void onNofaceDetected(byte[] data, int width, int height, int imageFormat, int imageAngle, int cameraRotation) {
+        	//TODO 没有识别到人脸时
+                }
+                @Override
+                public void onFaceMatched(byte[] data, int width, int height, int imageAngle, int cameraRotation, final FaceMatchResult matchResult, final long costTime) {
+        	//TODO 识别到人脸并在用户库中匹配用户
+                }
+                @Override
+                public void onRecapDetected(byte[] data, int width, int height, int imageAngle, int cameraRotation, float recapScore) {
+        	//TODO 检查到人脸翻拍
+                }
+                @Override
+                public void onFaceMoving(boolean isMoving) {
+        	//TODO 检查到人脸移动
+                }
+                @Override
+                public void onFaceDetectedInNIR(byte[] nirData, int width, int height, int nirAngle, NirFaceInfo nirFaceInfo){
+                    //TODO 红外摄像头检查到人脸
+                }
+                @Override
+                public void onNofaceDetectedInNIR(byte[] nirData, int width, int height, int nirAngle){
+        	//TODO 红外摄像头没有检查到人脸
+                }
+            };
+        //1：N检索接口调用，带红外活体
+        VerifySDKManager.getInstance().feedPreviewFrameWithNir(nirData,data,width, height,ImageFormat.NV21,degree,cameraRotation,nirFaceDetectListener);
+        							
+        ```
 
 -   **人脸1：N检测到人脸回调** 
+    -   接口名：onFaceDetected
 
-    接口名：onFaceDetected
+        接口描述：RGB帧数据中检测到人脸时，会回调该函数，调用方可根据此回调绘制人脸框。
 
-    接口描述：RGB帧数据中检测到人脸时，会回调该函数，调用方可根据此回调绘制人脸框。
+        |名称|类型|描述|
+        |--|--|--|
+        |data|byte\[\]|RGB帧数据。|
+        |width|int|RGB帧数据宽度。|
+        |height|int|RGB帧数据高度。|
+        |imageFormat|int|帧数据格式，Android默认选择ImageFormat.NV21。|
+        |imageAngle|int|图片旋转角度。|
+        |cameraRotation|int|相机旋转角度。|
+        |faceInfo|FaceInfo|检测到的人脸信息在帧中的坐标，宽高。|
 
-    |名称|类型|描述|
-    |--|--|--|
-    |data|byte\[\]|RGB帧数据。|
-    |width|int|RGB帧数据宽度。|
-    |height|int|RGB帧数据高度。|
-    |imageFormat|int|帧数据格式，Android默认选择ImageFormat.NV21。|
-    |imageAngle|int|图片旋转角度。|
-    |cameraRotation|int|相机旋转角度。|
-    |faceInfo|FaceInfo|检测到的人脸信息在帧中的坐标，宽高。|
+        示例代码：见1：N检索调用代码。
 
-    示例代码：见1：N检索调用代码。
+    -   接口名：onFaceDetectedInNIR
 
-    接口名：onFaceDetectedInNIR
+        接口描述：红外帧数据中检测到人脸时，会回调该函数，调用方可根据此回调做相应处理。
 
-    接口描述：红外帧数据中检测到人脸时，会回调该函数，调用方可根据此回调做相应处理。
+        |名称|类型|描述|
+        |--|--|--|
+        |nirData|byte\[\]|红外帧数据。|
+        |width|int|红外帧数据宽度。|
+        |height|int|红外帧数据高度。|
+        |nirAngle|int|图片旋转角度。|
+        |nirFaceInfo|NirFaceInfo|检测到的红外人脸信息在帧中的坐标，宽高。|
 
-    |名称|类型|描述|
-    |--|--|--|
-    |nirData|byte\[\]|红外帧数据。|
-    |width|int|红外帧数据宽度。|
-    |height|int|红外帧数据高度。|
-    |nirAngle|int|图片旋转角度。|
-    |nirFaceInfo|NirFaceInfo|检测到的红外人脸信息在帧中的坐标，宽高。|
-
-    示例代码：见1：N检索调用代码。
+        示例代码：见1：N检索调用代码。
 
 -   **人脸1：N未检测到人脸回调** 
+    -   接口名：onNofaceDetected
 
-    接口名：onNofaceDetected
+        接口描述：RGB帧数据中未检测到人脸，可以在这个回调中更新UI，移除之前绘制的人脸框。
 
-    接口描述：RGB帧数据中未检测到人脸，可以在这个回调中更新UI，移除之前绘制的人脸框。
+        |名称|类型|描述|
+        |--|--|--|
+        |data|byte\[\]|RGB帧数据。|
+        |width|int|RGB帧数据宽度。|
+        |height|int|RGB帧数据高度。|
+        |imageFormat|int|帧数据格式，Android默认选择ImageFormat.NV21。|
+        |imageAngle|int|图片旋转角度。|
+        |cameraRotation|int|相机旋转角度。|
 
-    |名称|类型|描述|
-    |--|--|--|
-    |data|byte\[\]|RGB帧数据。|
-    |width|int|RGB帧数据宽度。|
-    |height|int|RGB帧数据高度。|
-    |imageFormat|int|帧数据格式，Android默认选择ImageFormat.NV21。|
-    |imageAngle|int|图片旋转角度。|
-    |cameraRotation|int|相机旋转角度。|
+        示例代码：见1：N检索调用代码。
 
-    示例代码：见1：N检索调用代码。
+    -   接口名：onNofaceDetectedInNIR
 
-    接口名：onNofaceDetectedInNIR
+        接口描述：红外帧数据中未检测到人脸。
 
-    接口描述：红外帧数据中未检测到人脸。
+        |名称|类型|描述|
+        |--|--|--|
+        |nirData|byte\[\]|红外帧数据。|
+        |width|int|红外帧数据宽度。|
+        |height|int|红外帧数据高度。|
+        |nirAngle|int|图片旋转角度。|
 
-    |名称|类型|描述|
-    |--|--|--|
-    |nirData|byte\[\]|红外帧数据。|
-    |width|int|红外帧数据宽度。|
-    |height|int|红外帧数据高度。|
-    |nirAngle|int|图片旋转角度。|
-
-    示例代码：见1：N检索调用代码。
+        示例代码：见1：N检索调用代码。
 
 -   **人脸1：N检索结果回调** 
 
