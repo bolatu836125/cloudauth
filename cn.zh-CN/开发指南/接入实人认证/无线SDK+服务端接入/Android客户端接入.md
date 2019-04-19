@@ -5,8 +5,8 @@
 ## 操作步骤 {#section_cbs_bf4_1gb .section}
 
 1.  下载 Android SDK 及 Demo 工程。
-    -   Android SDK：[FaceVerifySDK\_Android-20190403.zip\(4 MB\)](http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/113697/cn_zh/1554788402387/FaceVerifySDK_Android-20190403.zip)
-    -   Android Demo：[FaceDetectDemo-Android-master-20181121.zip](http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/97845/cn_zh/1542875137254/FaceDetectDemo-Android-master-20181121.zip)
+    -   Android SDK：[FaceVerifySDK\_Android-20190418](http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/115364/cn_zh/1555637423613/FaceVerifySDK_Android-20190418.zip)
+    -   Android Demo：[FaceDetectDemo-Android-master-20181121.zip](http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/97845/cn_zh/1542875137254/FaceDetectDemo-Android-master-20181121.zip) 
 
         **说明：** 此 Android Demo 采用的是通过 gradle 拉取 maven 仓库下载 SDK，您可以修改为直接引入 SDK 的方式。
 
@@ -23,7 +23,7 @@
         implementation "com.alipay.android.phone.zoloz:toyger:7.1.0.00000001@aar"
         implementation "com.alipay.android.phone.zoloz:zface:7.1.0.00000001@aar"
         implementation "com.alipay.android.phone.zoloz:zim:7.1.0.00000001@aar"
-        implementation "com.alipay.android.phone.zoloz:releaseLoging:4.0.0.00000002@aar"
+        implementation "com.alipay.android.phone.zoloz:releaseLoging:4.0.0.00000003@aar"
         implementation "com.alipay.android.phone.zoloz:rpc:2.1.0.180302121215-ZOLOZ@aar"
         implementation "com.alipay.android.phone.zoloz:zolozsdk:7.1.0.00000003@aar"
         implementation "com.alipay.android.phone:deviceid-release:6.0.2.20171228@aar"
@@ -155,7 +155,6 @@
 -keep public class com.alipay.mobile.security.zim.gw.**{
     *;
 }
-
-
+			
 ```
 
