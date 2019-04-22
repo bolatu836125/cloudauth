@@ -24,7 +24,7 @@
 
 ## 步骤一：SDK下载 {#section_7ib_eol_14a .section}
 
-离线授权认证SDK可通过服务端接口进行下载，具体参看[下载离线授权认证SDK](cn.zh-CN/离线授权认证SDK/接入指南/服务端接入/API接口/下载离线授权认证SDK.md#)。
+离线授权认证SDK可通过服务端接口进行下载，具体参看[下载离线授权认证SDK](cn.zh-CN/离线授权认证SDK/接入指南/服务端接入/下载离线授权认证SDK.md#)。
 
 ## 步骤二：在工程中导入SDK {#section_sy9_djc_j3s .section}
 
@@ -317,7 +317,7 @@ defaultConfig {
     ```
 
 
-## 步骤五：SDK用户库操作 {#section_6zj_ic7_5cq .section}
+## 步骤四：SDK用户库操作 {#section_6zj_ic7_5cq .section}
 
 初始化成功后，如果要使用SDK的人脸1：N检索能力，需要进行相应用户库操作，向人脸库中添加人脸图片，否则人脸检索将无法匹配。
 
@@ -453,13 +453,13 @@ defaultConfig {
     ```
 
 
-## 步骤六：SDK人脸识别 {#section_fpd_k2d_8fc .section}
+## 步骤五：SDK人脸识别 {#section_fpd_k2d_8fc .section}
 
 **人脸1:1比对说明**
 
 SDK支持实时视频流和人脸图片进行比对，这是最为常见的1：1对比类型。针对一张事先获取的图片（通常为身份证芯片照、证件照片等），与摄像头实时采集的符合条件的人脸图片进行比对。通常适用于有人值守的场景。
 
-![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154180/155549119044662_zh-CN.png)
+![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154180/155592027844662_zh-CN.png)
 
 **人脸1：N检索**
 
@@ -467,7 +467,7 @@ SDK支持实时视频流和人脸图片进行比对，这是最为常见的1：1
 
 如果在初始化时设置开启了翻拍检测或红外活体检测，则摄像头采集的人脸图片必须同时通过活体检测，才能进入人脸检索环节，任一活体检测未通过，都不会进行人脸检索。
 
-![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154180/155549119044663_zh-CN.png)
+![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154180/155592027844663_zh-CN.png)
 
 -   **人脸1:1比对调用** 
 
@@ -720,7 +720,7 @@ SDK支持实时视频流和人脸图片进行比对，这是最为常见的1：1
     示例代码：见1：N检索调用代码。
 
 
-**SDK错误码** 
+## SDK错误码 {#section_r6g_wx2_vyr .section}
 
 |错误信息|错误描述|错误码|
 |----|----|---|
