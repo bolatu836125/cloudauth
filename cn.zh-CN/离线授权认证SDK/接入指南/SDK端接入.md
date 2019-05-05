@@ -18,7 +18,7 @@
 -   授权有效期到期
 -   新设备首次使用
 
-免费测试：我们为每个接入方提供2个免费测试授权，用于SDK接入试用，测试授权在激活后的3个月内有效。
+免费测试：我们为每个接入方提供2个免费测试授权，用于SDK接入试用，测试授权在激活后的1个月内有效。
 
 正式购买：客户根据业务需要购买相应时长的SDK使用授权，具体定价可联系阿里云客户经理咨询。
 
@@ -338,7 +338,7 @@ defaultConfig {
     ``` {#codeblock_q97_23f_owx}
     // 加载用户数据到内存
     VerifySDKManager.getInstance().loadUserLib(verifyLibEventListener);
-    							
+    						
     ```
 
 -   **添加本地用户照片** 
@@ -459,7 +459,7 @@ defaultConfig {
 
 SDK支持实时视频流和人脸图片进行比对，这是最为常见的1：1对比类型。针对一张事先获取的图片（通常为身份证芯片照、证件照片等），与摄像头实时采集的符合条件的人脸图片进行比对。通常适用于有人值守的场景。
 
-![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154180/155592027844662_zh-CN.png)
+![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154180/155702219544662_zh-CN.png)
 
 **人脸1：N检索**
 
@@ -467,7 +467,7 @@ SDK支持实时视频流和人脸图片进行比对，这是最为常见的1：1
 
 如果在初始化时设置开启了翻拍检测或红外活体检测，则摄像头采集的人脸图片必须同时通过活体检测，才能进入人脸检索环节，任一活体检测未通过，都不会进行人脸检索。
 
-![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154180/155592027844663_zh-CN.png)
+![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154180/155702219544663_zh-CN.png)
 
 -   **人脸1:1比对调用** 
 
@@ -555,7 +555,7 @@ SDK支持实时视频流和人脸图片进行比对，这是最为常见的1：1
                 }
         //1：N检索接口调用，不带红外活体
         VerifySDKManager.getInstance().feedPreviewFrame(data,width, height,ImageFormat.NV21,degree,cameraRotation, faceDetectWithMatchListener);
-        							
+        									
         ```
 
     -   接口名：feedPreviewFrameWithNir
@@ -609,7 +609,7 @@ SDK支持实时视频流和人脸图片进行比对，这是最为常见的1：1
             };
         //1：N检索接口调用，带红外活体
         VerifySDKManager.getInstance().feedPreviewFrameWithNir(nirData,data,width, height,ImageFormat.NV21,degree,cameraRotation,nirFaceDetectListener);
-        							
+        									
         ```
 
 -   **人脸1：N检测到人脸回调** 
