@@ -140,7 +140,7 @@ defaultConfig {
           // TODO 调用接入方服务端，服务端通过调用实人认证服务端接口CreateAuthKey获取
           // String token = 
     VerifySDKManager.getInstance().initWithToken(getApplicationContext(),token,initWithTokenCallback);
-      }						
+      }                        
     ```
 
     SDK提供相关设置函数，可以修改人脸检测的最小尺寸、是否开启翻拍检测、是否开启红外活体检测、设置翻拍检测阈值、设置红外活体阈值、设置人脸检索匹配阈值等，接入方可以按需设置。
@@ -345,7 +345,9 @@ defaultConfig {
 
     接口名：addUser
 
-    接口描述：添加本地用户照片到用户库，操作结果以回调方式通知，完成后不必重新loadUserLib。
+    接口描述：添加本地用户照片到用户库，操作结果以回调方式通知，完成后不必重新loadUserLib。添加后，用户照片数据会存储在设备本地数据库，适用于人脸底库数量不大且设备存储空间相对充裕的情况。
+
+    **说明：** 使用该函数添加用户照片，优势是当人脸算法模型更新升级时，接入方不需要再重新入库一次用户照片，SDK会根据本地已有的照片数据重新提取特征值，支持在新模型下的运行；劣势是照片数据会占用一定的设备存储空间。
 
     |名称|类型|描述|
     |--|--|--|
@@ -359,6 +361,28 @@ defaultConfig {
 
     ``` {#codeblock_0ic_s4w_n92}
     VerifySDKManager.getInstance().addUser(true, String.valueOf(i), Type.BIOLOGY_FACE,FileUtil.getFileBuffer(path),verifyLibEventListener);
+    ```
+
+    接口名：addUserWithoutFeatureData
+
+    接口描述：添加本地用户照片，操作结果以回调方式通知。添加后，用户照片数据不会存储在设备本地数据库，适用于人脸底库数量大且设备存储空间有限的情况。
+
+    **说明：** 使用该函数添加用户照片，优势是不占用设备存储空间；劣势是当人脸算法模型更新升级时，本地已有的特征库无法适配新模型，SDK会运行失败，需要接入方再重新入库一次用户照片，以便新模型重新提取特征值，确保SDK正常运行。
+
+    **说明：** 使用该函数的接入方，需要在onUserLibLoaded回调函数中处理errorCode=104的错误码，详见onUserLibLoaded调用示例代码。
+
+    |名称|类型|描述|
+    |--|--|--|
+    |isSync|boolean|是否同步调用，建议上层调用入库自己管理线程，该参数传true，否则传false。|
+    |id|String|用户ID，需要保证唯一性。|
+    |type|int|生物特征类型，目前只支持Type.BIOLOGY\_FACE。|
+    |featureData|byte\[\]|用户照片的byte源数据，支持jpg、png格式。|
+    |verifyLibEventListener|VerifyLibEventListener|用户库操作回调。|
+
+    示例代码：
+
+    ``` {#codeblock_zic_zlu_4wh}
+    VerifySDKManager.getInstance().addUserWithoutFeatureData(true, String.valueOf(i), Type.BIOLOGY_FACE,FileUtil.getFileBuffer(path),verifyLibEventListener);
     ```
 
 -   **删除指定用户生物数据** 
@@ -415,7 +439,9 @@ defaultConfig {
 
     |名称|类型|描述|
     |--|--|--|
-    |errorCode|int|错误码，0为正确。|
+    |errorCode|int|错误码，0为正确。 **说明：** 使用addUserWithoutFeatureData函数添加用户的接入方，需要特殊处理该回调函数errorCode=104的错误码，详见下方示例代码中说明。
+
+ |
 
 -   **用户库清除回调** 
 
@@ -434,19 +460,22 @@ defaultConfig {
     final VerifySDKManager.VerifyLibEventListener verifyLibEventListener = new VerifySDKManager.VerifyLibEventListener() {
             @Override
             public void onSingleUserLibUpdate(String id, final int errorCode) {
-    		//TODO 单用户更新操作完成后处理
+            //TODO 单用户更新操作完成后处理
             }
             @Override
             public void onBatchUserLibUpdate(int errorCode) {
-    		//TODO 批量用户更新，暂时不支持
+            //TODO 批量用户更新，暂时不支持
             }
-            @Override
+           @Override
             public void onUserLibLoaded(int errorCode) {
-    		//TODO loadUserLib操作完成后处理
+            //TODO loadUserLib操作完成后处理
+            //使用addUserWithoutFeatureData函数添加用户的接入方，需要在该回调中特殊处理errorCode=104的错误码，操作步骤如下：
+            //第一步：调用clearUserLib清除本地数据
+            //第二步：接入方重新入库用户数据
             }
             @Override
             public void onUserLibEmpty(int errorCode) {
-    		//TODO clearUserLib操作完成后处理
+            //TODO clearUserLib操作完成后处理
             }
     };
     							
@@ -459,7 +488,7 @@ defaultConfig {
 
 SDK支持实时视频流和人脸图片进行比对，这是最为常见的1：1对比类型。针对一张事先获取的图片（通常为身份证芯片照、证件照片等），与摄像头实时采集的符合条件的人脸图片进行比对。通常适用于有人值守的场景。
 
-![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154180/155702219544662_zh-CN.png)
+![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154180/155866336344662_zh-CN.png)
 
 **人脸1：N检索**
 
@@ -467,7 +496,7 @@ SDK支持实时视频流和人脸图片进行比对，这是最为常见的1：1
 
 如果在初始化时设置开启了翻拍检测或红外活体检测，则摄像头采集的人脸图片必须同时通过活体检测，才能进入人脸检索环节，任一活体检测未通过，都不会进行人脸检索。
 
-![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154180/155702219544663_zh-CN.png)
+![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154180/155866336344663_zh-CN.png)
 
 -   **人脸1:1比对调用** 
 
@@ -535,23 +564,23 @@ SDK支持实时视频流和人脸图片进行比对，这是最为常见的1：1
         faceDetectListener = new VerifySDKManager. FaceDetectWithMatchListener () {
                 @Override
                 public void onFaceDetected(byte[] data, final int width, final int height, int imageFormat, int imageAngle, int cameraRotation, final FaceInfo faceInfo) {
-        	//TODO 识别到人脸时
+            //TODO 识别到人脸时
                 }
                 @Override
                 public void onNofaceDetected(byte[] data, int width, int height, int imageFormat, int imageAngle, int cameraRotation) {
-        	//TODO 没有识别到人脸时
+            //TODO 没有识别到人脸时
                 }
                 @Override
                 public void onFaceMatched(byte[] data, int width, int height, int imageAngle, int cameraRotation, final FaceMatchResult matchResult, final long costTime) {
-        	//TODO 识别到人脸并在用户库中匹配用户
+            //TODO 识别到人脸并在用户库中匹配用户
                 }
                 @Override
                 public void onRecapDetected(byte[] data, int width, int height, int imageAngle, int cameraRotation, float recapScore) {
-        	//TODO 检查到人脸翻拍
+            //TODO 检查到人脸翻拍
                 }
                 @Override
                 public void onFaceMoving(boolean isMoving) {
-        	//TODO 检查到人脸移动
+            //TODO 检查到人脸移动
                 }
         //1：N检索接口调用，不带红外活体
         VerifySDKManager.getInstance().feedPreviewFrame(data,width, height,ImageFormat.NV21,degree,cameraRotation, faceDetectWithMatchListener);
@@ -580,23 +609,23 @@ SDK支持实时视频流和人脸图片进行比对，这是最为常见的1：1
         final VerifySDKManager.NirFaceDetectListener nirFaceDetectListener = new VerifySDKManager.NirFaceDetectListener() {
                 @Override
                 public void onFaceDetected(byte[] data, final int width, final int height, int imageFormat, int imageAngle, int cameraRotation, final FaceInfo faceInfo) {
-        	//TODO 识别到人脸时
+            //TODO 识别到人脸时
                 }
                 @Override
                 public void onNofaceDetected(byte[] data, int width, int height, int imageFormat, int imageAngle, int cameraRotation) {
-        	//TODO 没有识别到人脸时
+            //TODO 没有识别到人脸时
                 }
                 @Override
                 public void onFaceMatched(byte[] data, int width, int height, int imageAngle, int cameraRotation, final FaceMatchResult matchResult, final long costTime) {
-        	//TODO 识别到人脸并在用户库中匹配用户
+            //TODO 识别到人脸并在用户库中匹配用户
                 }
                 @Override
                 public void onRecapDetected(byte[] data, int width, int height, int imageAngle, int cameraRotation, float recapScore) {
-        	//TODO 检查到人脸翻拍
+            //TODO 检查到人脸翻拍
                 }
                 @Override
                 public void onFaceMoving(boolean isMoving) {
-        	//TODO 检查到人脸移动
+            //TODO 检查到人脸移动
                 }
                 @Override
                 public void onFaceDetectedInNIR(byte[] nirData, int width, int height, int nirAngle, NirFaceInfo nirFaceInfo){
@@ -604,7 +633,7 @@ SDK支持实时视频流和人脸图片进行比对，这是最为常见的1：1
                 }
                 @Override
                 public void onNofaceDetectedInNIR(byte[] nirData, int width, int height, int nirAngle){
-        	//TODO 红外摄像头没有检查到人脸
+            //TODO 红外摄像头没有检查到人脸
                 }
             };
         //1：N检索接口调用，带红外活体
