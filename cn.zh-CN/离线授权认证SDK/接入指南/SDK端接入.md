@@ -345,7 +345,7 @@ defaultConfig {
 
     接口名：addUser
 
-    接口描述：添加本地用户照片到用户库，操作结果以回调方式通知，完成后不必重新loadUserLib。添加后，用户照片数据会存储在设备本地数据库，适用于人脸底库数量不大且设备存储空间相对充裕的情况。
+    接口描述：添加本地用户照片到用户库，操作结果以回调方式通知，完成后不必重新loadUserLib。添加后，用户照片数据会存储在设备本地数据库，适用于人脸底库数量不大或设备存储空间相对充裕的情况。
 
     **说明：** 使用该函数添加用户照片，优势是当人脸算法模型更新升级时，接入方不需要再重新入库一次用户照片，SDK会根据本地已有的照片数据重新提取特征值，支持在新模型下的运行；劣势是照片数据会占用一定的设备存储空间。
 
@@ -365,7 +365,7 @@ defaultConfig {
 
     接口名：addUserWithoutFeatureData
 
-    接口描述：添加本地用户照片，操作结果以回调方式通知。添加后，用户照片数据不会存储在设备本地数据库，适用于人脸底库数量大且设备存储空间有限的情况。
+    接口描述：添加本地用户照片，操作结果以回调方式通知。添加后，用户照片数据不会存储在设备本地数据库，适用于人脸底库数量大或设备存储空间有限的情况。
 
     **说明：** 使用该函数添加用户照片，优势是不占用设备存储空间；劣势是当人脸算法模型更新升级时，本地已有的特征库无法适配新模型，SDK会运行失败，需要接入方再重新入库一次用户照片，以便新模型重新提取特征值，确保SDK正常运行。
 
@@ -469,7 +469,7 @@ defaultConfig {
            @Override
             public void onUserLibLoaded(int errorCode) {
             //TODO loadUserLib操作完成后处理
-            //使用addUserWithoutFeatureData函数添加用户的接入方，需要在该回调中特殊处理errorCode=104的错误码，操作步骤如下：
+            //特殊说明：使用addUserWithoutFeatureData函数添加用户的接入方，需要在该回调中特殊处理errorCode=104的错误码，操作步骤如下：
             //第一步：调用clearUserLib清除本地数据
             //第二步：接入方重新入库用户数据
             }
@@ -488,7 +488,7 @@ defaultConfig {
 
 SDK支持实时视频流和人脸图片进行比对，这是最为常见的1：1对比类型。针对一张事先获取的图片（通常为身份证芯片照、证件照片等），与摄像头实时采集的符合条件的人脸图片进行比对。通常适用于有人值守的场景。
 
-![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154180/155866336344662_zh-CN.png)
+![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154180/155867136144662_zh-CN.png)
 
 **人脸1：N检索**
 
@@ -496,7 +496,7 @@ SDK支持实时视频流和人脸图片进行比对，这是最为常见的1：1
 
 如果在初始化时设置开启了翻拍检测或红外活体检测，则摄像头采集的人脸图片必须同时通过活体检测，才能进入人脸检索环节，任一活体检测未通过，都不会进行人脸检索。
 
-![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154180/155866336344663_zh-CN.png)
+![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154180/155867136144663_zh-CN.png)
 
 -   **人脸1:1比对调用** 
 
