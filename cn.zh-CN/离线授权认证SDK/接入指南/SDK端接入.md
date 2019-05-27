@@ -488,7 +488,7 @@ defaultConfig {
 
 SDK支持实时视频流和人脸图片进行比对，这是最为常见的1：1对比类型。针对一张事先获取的图片（通常为身份证芯片照、证件照片等），与摄像头实时采集的符合条件的人脸图片进行比对。通常适用于有人值守的场景。
 
-![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154180/155867136144662_zh-CN.png)
+![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154180/155894031144662_zh-CN.png)
 
 **人脸1：N检索**
 
@@ -496,7 +496,7 @@ SDK支持实时视频流和人脸图片进行比对，这是最为常见的1：1
 
 如果在初始化时设置开启了翻拍检测或红外活体检测，则摄像头采集的人脸图片必须同时通过活体检测，才能进入人脸检索环节，任一活体检测未通过，都不会进行人脸检索。
 
-![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154180/155867136144663_zh-CN.png)
+![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154180/155894031144663_zh-CN.png)
 
 -   **人脸1:1比对调用** 
 
@@ -755,6 +755,7 @@ SDK支持实时视频流和人脸图片进行比对，这是最为常见的1：1
 |----|----|---|
 |VERIFYSDK\_ERR\_CODE\_BAD\_PARAM|参数错误。|100|
 |VERIFYSDK\_ERR\_CODE\_ACCESS\_WORK\_FAILED|访问工作路径错误。|101|
+|VERRORCODE\_NEED\_MANUAL\_UPDATE|人脸特征库与算法不匹配，SDK启动失败。|104|
 |VERIFYSDK\_ERR\_CODE\_INVALID\_PARAM|人脸引擎参数无效。|1000|
 |VERIFYSDK\_ERR\_CODE\_SDK\_NOT\_INIT|人脸引擎未初始化。|1001|
 |VERIFYSDK\_ERR\_CODE\_INIT\_MULT\_TIME|人脸引擎初始化多次。|1002|
