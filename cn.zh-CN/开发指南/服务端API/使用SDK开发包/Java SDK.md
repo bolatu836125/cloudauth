@@ -15,7 +15,7 @@
 
 如果您使用Maven管理Java项目，可以通过在pom.xml文件中添加Maven依赖：
 
-```
+``` {#codeblock_636_x3r_pk7}
 <dependency>
     <groupId>com.aliyun</groupId>
     <artifactId>aliyun-java-sdk-core</artifactId>
@@ -24,7 +24,7 @@
 <dependency>
     <groupId>com.aliyun</groupId>
     <artifactId>aliyun-java-sdk-cloudauth</artifactId>
-    <version>1.3.0</version>
+    <version>1.3.1</version>
 </dependency>
 ```
 
@@ -32,14 +32,14 @@
 
 **方法2：在集成开发环境（IDE）中导入jar文件**
 
-**Eclipse安装**
+**Eclipse安装** 
 
 1.  将下载的aliyun-java-sdk-xxx.jar文件复制到您的项目文件夹中。
 2.  在Eclipse中打开您的项目，右键单击该项目，单击**Properties**。
 3.  在弹出的对话框中，单击**Java Build Path** \> **Libraries** \> **Add JARs**添加下载的JAR文件。
 4.  单击**Apply and Close**。
 
-**IntelliJ 安装**
+**IntelliJ 安装** 
 
 1.  将下载的aliyun-java-sdk-xxx.jar文件复制到您的项目文件夹中。
 2.  在IntelliJ中打开您的项目，在菜单栏中单击**File** \> **Project** \> **Structure**。
@@ -47,7 +47,7 @@
 
 ## RPBasic认证方案示例 {#RPBasic .section}
 
-```
+``` {#codeblock_f2b_2ho_i7j}
 //创建DefaultAcsClient实例并初始化
 DefaultProfile profile = DefaultProfile.getProfile(
         "cn-hangzhou",             //默认
@@ -112,7 +112,7 @@ if( 1 == statusCode || 2 == statusCode ) { //认证通过or认证不通过
 
 ## RPBioID认证方案示例 {#RPBioID .section}
 
-```
+``` {#codeblock_1wu_a54_3b2}
 //创建DefaultAcsClient实例并初始化
 DefaultProfile profile = DefaultProfile.getProfile(
         "cn-hangzhou",             //默认
@@ -185,7 +185,7 @@ if( 1 == statusCode || 2 == statusCode ) { //认证通过or认证不通过
 
 ## FVBioOnly认证方案示例 {#FVBioOnly .section}
 
-```
+``` {#codeblock_l0j_fvb_1xc}
 //创建DefaultAcsClient实例并初始化
 DefaultProfile profile = DefaultProfile.getProfile(
         "cn-hangzhou",             //默认
@@ -250,7 +250,7 @@ if( 1 == statusCode || 2 == statusCode ) { //认证通过or认证不通过
 
 ## RPH5BioOnly认证方案示例 {#RPH5BioOnly .section}
 
-```
+``` {#codeblock_5l3_15u_mzj}
 //创建DefaultAcsClient实例并初始化
 DefaultProfile profile = DefaultProfile.getProfile(
         "cn-hangzhou",             //默认
@@ -315,7 +315,7 @@ if( 1 == statusCode || 2 == statusCode ) { //认证通过or认证不通过
 
 ## RPMin认证方案示例 {#RPMin .section}
 
-```
+``` {#codeblock_7x5_f8g_dis}
 //创建DefaultAcsClient实例并初始化
 DefaultProfile profile = DefaultProfile.getProfile(
 "cn-hangzhou", //默认
@@ -363,7 +363,7 @@ e.printStackTrace();
 
 ## 人脸比对验证示例 {#CompareFaces .section}
 
-```
+``` {#codeblock_xzz_gma_g0e}
 //创建DefaultAcsClient实例并初始化
 DefaultProfile profile = DefaultProfile.getProfile(
         "cn-hangzhou",             //默认
@@ -393,7 +393,7 @@ try {
 
 ## 离线授权认证SDK下载示例 {#section_p3g_chm_jhb .section}
 
-```
+``` {#codeblock_bbq_c2q_pbb}
 DefaultProfile profile = DefaultProfile.getProfile(
 "cn-hangzhou", // 可用区域id，目前只支持cn-hangzhou
 "your access key id", // 您的Access Key ID
@@ -426,7 +426,7 @@ sdkUrl = describeVerifySDKResponse.getSdkUrl();
 
 ## 离线授权认证SDK获取授权key示例 {#section_jcg_hhm_jhb .section}
 
-```
+``` {#codeblock_zvn_chp_4rm}
 DefaultProfile profile = DefaultProfile.getProfile(
 "cn-hangzhou", // 可用区域id，目前只支持cn-hangzhou
 "your access key id", // 您的Access Key ID
