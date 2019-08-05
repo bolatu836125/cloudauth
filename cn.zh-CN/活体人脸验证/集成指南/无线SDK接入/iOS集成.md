@@ -39,7 +39,7 @@
     -   Libiconv.tbd
     -   Libc++.tbd
     -   Libz.tbd
-3.  在您的工程资源中（Copy Bundle Resources），引入无线认证SDK 包中的yw\_1222\_\*.jpg签名图片文件，以及resource目录下的FaceLivenessSDK.bundle和RPSDK.bundle文件。![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/1135432/156482742353978_zh-CN.png)
+3.  在您的工程资源中（Copy Bundle Resources），引入无线认证SDK 包中的yw\_1222\_\*.jpg签名图片文件，以及resource目录下的FaceLivenessSDK.bundle和RPSDK.bundle文件。![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/1135432/156499394653978_zh-CN.png)
 
 
 4.  编译选项：在工程的Other Linker Flags选项中添加-ObjC。
@@ -58,23 +58,37 @@
 2.  进入认证。 
 
     ``` {#codeblock_xiw_e0k_2eg}
-    [RPSDK start:verifyToken rpCompleted:^(AUDIT auditState) {
-         NSLog(@"verifyResult = %ld",(unsigned long)auditState);
-         if(auditState == AUDIT_PASS) { //认证通过。
+    [RPSDK start:verifyToken rpCompleted:^(RPVerifyState verifyState, NSString *code) {
+         NSLog(@"verifyResult = %ld",(unsigned long)verifyState);
+         if(verifyState == RPVerifyStatePass) { //认证通过。
          }
-         else if(auditState == AUDIT_FAIL) { //认证不通过。
+         else if(verifyState == RPVerifyStateFail) { //认证不通过。
+         }
+         else if(verifyState == RPVerifyStateNotVerify) { //未认证，用户主动退出，或者姓名身份证号实名校验不匹配等原因，导致未完成认证流程。
          }
     
-         }
-         else if(auditState == AUDIT_NOT) { //未认证，通常是用户主动退出，未完成认证流程。
-         }
      }withVC:self.navigationController];
     ```
 
     **说明：** 
 
     -   verifyToken参数由接入方的服务端调用实人认证服务的DescribeVerifyToken接口获得。
-    -   认证的结果由回调的方式返回，并携带状态。
+    -   在RPSDK.start接口调用的回调会返回用户认证的各种状态，具体信息体现在verifyState和code参数取值，详见下表说明。
+    |verifyState|code|code释义|
+    |-----------|----|------|
+    |RPVerifyStatePass|1|认证通过|
+    |RPVerifyStateFail|取值2~12|表示认证不通过，具体的不通过原因可以查看服务端的[查询认证结果](cn.zh-CN/实人认证/集成指南/服务端接入/查询认证结果.md#)（DescribeVerifyResult）接口文档中认证状态的表格说明|
+    |RPVerifyStateNotVerify|-1|未完成认证，原因是：用户在认证过程中，主动退出|
+    |RPVerifyStateNotVerify|3001|未完成认证，原因是：认证token无效或已过期|
+    |RPVerifyStateNotVerify|3101|未完成认证，原因是：用户姓名身份证实名校验不匹配|
+    |RPVerifyStateNotVerify|3102|未完成认证，原因是：实名校验身份证号不存在|
+    |RPVerifyStateNotVerify|3103|未完成认证，原因是：实名校验身份证号不合法|
+    |RPVerifyStateNotVerify|3104|未完成认证，原因是：认证已通过，重复提交|
+    |RPVerifyStateNotVerify|3201|未完成认证，原因是：身份证校验失败|
+    |RPVerifyStateNotVerify|3202|未完成认证，原因是：身份证校验失败，需要手输姓名+身份证|
+    |RPVerifyStateNotVerify|3203|未完成认证，原因是：设备不支持|
+    |RPVerifyStateNotVerify|3204|未完成认证，原因是：操作太频繁|
+
 
 ## 常见问题 {#section_jaw_7io_ww2 .section}
 
