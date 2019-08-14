@@ -68,7 +68,7 @@
 
 ## 接入时序图 {#section_txc_3f4_hhb .section}
 
-![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154192/155486816243251_zh-CN.png)
+![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154192/155495097343251_zh-CN.png)
 
 时序图说明：
 
@@ -334,7 +334,7 @@ VerifySDKManager.getInstance().setNeedNirLiveness(true). setNeedNirSeniorRecapCh
 
 SDK支持实时视频流和人脸图片进行比对，这是最为常见的1：1对比类型。针对一张事先获取的图片（通常为身份证芯片照、证件照片等），与摄像头实时采集的符合条件的人脸图片进行比对。通常适用于有人值守的场景。
 
-![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154192/155486816243274_zh-CN.png)
+![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154192/155495097343274_zh-CN.png)
 
 **人脸1：N检索**
 
@@ -342,7 +342,7 @@ SDK支持实时视频流和人脸图片进行比对，这是最为常见的1：1
 
 如果在初始化时设置开启了翻拍检测或红外活体检测，则摄像头采集的人脸图片必须同时通过活体检测，才能进入人脸检索环节，任一活体检测未通过，都不会进行人脸检索。
 
-![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154192/155486816243275_zh-CN.png)
+![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/154192/155495097443275_zh-CN.png)
 
 -   **人脸1:1比对调用**
 

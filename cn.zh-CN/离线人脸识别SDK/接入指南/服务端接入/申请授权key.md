@@ -4,7 +4,7 @@
 
 接口名：CreateAuthKey
 
-获取授权key，用于离线授权认证SDK激活。
+获取授权key，用于离线人脸识别SDK激活。
 
 请求方法：支持以HTTPS POST和GET方法发送请求。
 
@@ -27,9 +27,7 @@
 
 ## 示例 {#section_kck_0p2_i1d .section}
 
-使用SDK开发包的示例，请参考[Java](cn.zh-CN/开发指南/服务端API/使用SDK开发包/Java SDK.md#)、[PHP](cn.zh-CN/开发指南/服务端API/使用SDK开发包/PHP SDK.md#)、[Python](cn.zh-CN/开发指南/服务端API/使用SDK开发包/Python SDK.md#)、[.NET](cn.zh-CN/开发指南/服务端API/使用SDK开发包/.NET SDK.md#)、[Node.js](cn.zh-CN/开发指南/服务端API/使用SDK开发包/Node.js SDK.md#)、[Go](cn.zh-CN/开发指南/服务端API/使用SDK开发包/Go SDK.md#)中的接入说明及**离线授权认证SDK获取授权key示例**部分的代码。（推荐以该方式接入）
-
- 
+使用SDK开发包的示例，请参见Java、PHP、Python、.NET、Node.js、Go中的接入说明及离线人脸识别SDK获取授权key示例部分的代码。（推荐以该方式接入）
 
 以下是拼接HTTPS请求的相关示例：
 
@@ -41,10 +39,10 @@
     &UserDeviceId=3iJ1AY$oHcu7mC69
     &Test=false
     &AuthYears=1
-    &<[公共请求参数]>				
+    &<[公共请求参数]>                
     ```
 
-    其中公共请求参数参看[API调用方式](../../../../cn.zh-CN/开发指南/服务端API/API调用方式.md#)。
+    其中公共请求参数参见API调用方式。
 
 -   返回示例
     -   XML格式
