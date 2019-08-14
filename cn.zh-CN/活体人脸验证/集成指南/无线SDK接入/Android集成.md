@@ -2,6 +2,8 @@
 
 下载无线认证 SDK 后，您可参考以下步骤将认证 SDK 集成到您的 Android 应用中。
 
+[单击查看老版本接入文档说明。](../../../../cn.zh-CN/老系统文档说明/老版本接入文档说明.md#)
+
 Android SDK 与包名（package name）+签名（keystore）绑定，修改package name或keystore都需要在[管理控制台](https://yundun.console.aliyun.com/?p=cloudauth)上重新下载SDK，debug 和 release 不能混用。
 
 **说明：** 若您需要用到 V2 方式的签名，打包时请同时勾选 V1、V2 签名（如果只选择V2签名，apk将无法在Android 7.0以下安装）。
@@ -97,7 +99,7 @@ Android SDK 与包名（package name）+签名（keystore）绑定，修改packa
 
         如果在 project.properties中指定了ProGuard配置（例如，在`project.properties`中包含`proguard.config=proguard.cfg`语句），则表明已使用 ProGuard 进行代码混淆，混淆配置在 proguard.cfg 文件中。
 
-        ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/1135430/156480764953977_zh-CN.png)
+        ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/1135430/156574650353977_zh-CN.png)
 
     -   Android Studio
 
@@ -144,7 +146,7 @@ Android SDK 与包名（package name）+签名（keystore）绑定，修改packa
     RPSDK.start(verifyToken, ParametersActivity.this, 
          new RPSDK.RPCompletedListener() {
          @Override
-         public void onAuditResult(RPSDK.AUDIT audit) {
+         public void onAuditResult(RPSDK.AUDIT audit, String code) {
              Toast.makeText(ParametersActivity.this, audit + "",
     Toast.LENGTH_SHORT).show();
              if(audit == RPSDK.AUDIT.AUDIT_PASS) { //认证通过
@@ -152,7 +154,7 @@ Android SDK 与包名（package name）+签名（keystore）绑定，修改packa
              else if(audit ==
     RPSDK.AUDIT.AUDIT_FAIL) { //认证不通过
              }
-             else if(audit == RPSDK.AUDIT.AUDIT_NOT) { //未认证，通常是用户主动退出，未完成认证流程
+             else if(audit == RPSDK.AUDIT.AUDIT_NOT) { //未认证，通常是用户主动退出或者姓名身份证号实名校验不匹配等原因，导致未完成认证流程
              }
          }
      });
@@ -161,7 +163,19 @@ Android SDK 与包名（package name）+签名（keystore）绑定，修改packa
     **说明：** 
 
     -   verifyToken参数由接入方的服务端调用实人认证服务的DescribeVerifyToken接口获得。
-    -   在RPSDK.start接口调用的回调会返回用户认证完之后的各种状态。
+    -   在RPSDK.start接口调用的回调会返回用户认证的各种状态，onAuditResult函数的的audit和code参数取值，可参见下表说明。
+    |audit|code|code释义|
+    |-----|----|------|
+    |RPSDK.AUDIT.AUDIT\_PASS|1|认证通过|
+    |RPSDK.AUDIT.AUDIT\_FAIL|取值3~12|表示认证不通过，具体的不通过原因可以查看服务端的[查询认证结果](cn.zh-CN/实人认证/集成指南/服务端接入/查询认证结果.md#)（DescribeVerifyResult）接口文档中认证状态的表格说明|
+    |RPSDK.AUDIT.AUDIT\_NOT|-1|未完成认证，原因是：用户在认证过程中，主动退出|
+    |RPSDK.AUDIT.AUDIT\_NOT|3001|未完成认证，原因是：认证token无效或已过期|
+    |RPSDK.AUDIT.AUDIT\_NOT|3101|未完成认证，原因是：用户姓名身份证实名校验不匹配|
+    |RPSDK.AUDIT.AUDIT\_NOT|3102|未完成认证，原因是：实名校验身份证号不存在|
+    |RPSDK.AUDIT.AUDIT\_NOT|3103|未完成认证，原因是：实名校验身份证号不合法|
+    |RPSDK.AUDIT.AUDIT\_NOT|3104|未完成认证，原因是：认证已通过，重复提交|
+    |RPSDK.AUDIT.AUDIT\_NOT|3204|未完成认证，原因是：操作太频繁|
+
 
 ## 常见问题 {#section_zt8_umt_4m6 .section}
 
