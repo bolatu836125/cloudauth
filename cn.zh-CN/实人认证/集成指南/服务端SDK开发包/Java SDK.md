@@ -2,7 +2,7 @@
 
 本文介绍了如何使用阿里云实人认证服务的Java SDK，具体包括SDK的获取和安装方法以及SDK代码示例。
 
-[单击查看老版本接入文档说明。](../../../../cn.zh-CN/产品简介/旧文档（隐藏）/老版本接入文档说明.md#)
+[单击查看老版本接入文档说明。](../../../../cn.zh-CN/老系统文档说明/老版本接入文档说明.md#)
 
 ## 获取地址 {#section_aq3_hss_gfb .section}
 
@@ -30,12 +30,12 @@
 <dependency>
     <groupId>com.aliyun</groupId>
     <artifactId>aliyun-java-sdk-core</artifactId>
-    <version>4.1.2</version>
+    <version>4.4.3</version>
 </dependency>
 <dependency>
     <groupId>com.aliyun</groupId>
     <artifactId>aliyun-java-sdk-cloudauth</artifactId>
-    <version>1.3.1</version>
+    <version>2.0.0</version>
 </dependency>
 ```
 
