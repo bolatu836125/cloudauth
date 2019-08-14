@@ -2,7 +2,7 @@
 
 下载无线认证SDK后，您可参考以下步骤将认证SDK集成到您的iOS应用中。
 
-[单击查看老版本接入文档说明。](../../../../cn.zh-CN/产品简介/旧文档（隐藏）/老版本接入文档说明.md#)
+[单击查看老版本接入文档说明。](../../../../cn.zh-CN/老系统文档说明/老版本接入文档说明.md#)
 
 **说明：** iOS SDK与BundleID绑定，不同BundleID需要在[管理控制台](https://yundun.console.aliyun.com/?p=cloudauth)上重新下载SDK。
 
@@ -41,7 +41,7 @@
     -   Libiconv.tbd
     -   Libc++.tbd
     -   Libz.tbd
-3.  在您的工程资源中（Copy Bundle Resources），引入无线认证SDK 包中的yw\_1222\_\*.jpg签名图片文件，以及resource目录下的FaceLivenessSDK.bundle和RPSDK.bundle文件。![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/1135432/156569001653978_zh-CN.png)
+3.  在您的工程资源中（Copy Bundle Resources），引入无线认证SDK 包中的yw\_1222\_\*.jpg签名图片文件，以及resource目录下的FaceLivenessSDK.bundle和RPSDK.bundle文件。![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/1135432/156574651453978_zh-CN.png)
 
 
 4.  编译选项：在工程的Other Linker Flags选项中添加-ObjC。
@@ -86,9 +86,6 @@
     |RPVerifyStateNotVerify|3102|未完成认证，原因是：实名校验身份证号不存在|
     |RPVerifyStateNotVerify|3103|未完成认证，原因是：实名校验身份证号不合法|
     |RPVerifyStateNotVerify|3104|未完成认证，原因是：认证已通过，重复提交|
-    |RPVerifyStateNotVerify|3201|未完成认证，原因是：身份证校验失败|
-    |RPVerifyStateNotVerify|3202|未完成认证，原因是：身份证校验失败，需要手输姓名+身份证|
-    |RPVerifyStateNotVerify|3203|未完成认证，原因是：设备不支持|
     |RPVerifyStateNotVerify|3204|未完成认证，原因是：操作太频繁|
 
 
