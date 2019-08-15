@@ -10,7 +10,7 @@
 -   协议：HTTPS
 -   方式：POST
 
-**说明：** 为了便于进行开发，阿里云还提供了Java、Python、PHP、C\#、Golang语言的SDK开发包，可以免去拼接HTTPS请求和对签名算法进行编码的操作，具体请参见 [调用方式](https://www.alibabacloud.com/help/zh/doc-detail/118498.htm)。
+**说明：** 为了便于进行开发，阿里云还提供了Java、Python、PHP、C\#、Golang语言的SDK开发包，可以免去拼接HTTPS请求和对签名算法进行编码的操作，具体请参见[调用方式](https://www.alibabacloud.com/help/zh/doc-detail/118498.htm)。
 
 ## 调用参数 {#section_p00_f25_ywa .section}
 
@@ -20,8 +20,8 @@
 |--|--|----|--|
 |Format|String|是|返回值的类型，支持JSON与XML，默认为XML。|
 |Version|String|是|API版本号，为日期形式：YYYY-MM-DD，本版本对应为2019-05-21。|
-|AccessKeyId|String|是|阿里云颁发给用户的访问服务所用的密钥ID，请参见 [创建AccessKey](https://help.aliyun.com/document_detail/66453.html)。|
-|Signature|String|是|签名结果串，关于签名的计算方法，请参见 [签名机制](https://help.aliyun.com/document_detail/66384.html)。|
+|AccessKeyId|String|是|阿里云颁发给用户的访问服务所用的密钥ID，请参见 [创建AccessKey](https://www.alibabacloud.com/help/zh/doc-detail/66453.html)。|
+|Signature|String|是|签名结果串，关于签名的计算方法，请参见[签名机制](https://www.alibabacloud.com/help/zh/doc-detail/66384.html)。|
 |SignatureMethod|String|是|签名方式，目前支持HMAC-SHA1。|
 |Timestamp|String|是|请求的时间戳。日期格式按照ISO8601标准表示，并需要使用UTC时间。格式为：`YYYY-MM-DDThh:mm:ssZ`。 例如，`2014-7-29T12:00:00Z`（为北京时间2014年7月29日的20点0分0秒）。
 
