@@ -41,7 +41,7 @@
     -   Libiconv.tbd
     -   Libc++.tbd
     -   Libz.tbd
-3.  在您的工程资源中（Copy Bundle Resources），引入无线认证SDK 包中的yw\_1222\_\*.jpg签名图片文件，以及resource目录下的FaceLivenessSDK.bundle和RPSDK.bundle文件。![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/1135432/156574651453978_zh-CN.png)
+3.  在您的工程资源中（Copy Bundle Resources），引入无线认证SDK 包中的yw\_1222\_\*.jpg签名图片文件，以及resource目录下的FaceLivenessSDK.bundle和RPSDK.bundle文件。![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/1135432/156584033753978_zh-CN.png)
 
 
 4.  编译选项：在工程的Other Linker Flags选项中添加-ObjC。
@@ -79,7 +79,7 @@
     |verifyState|code|code释义|
     |-----------|----|------|
     |RPVerifyStatePass|1|认证通过|
-    |RPVerifyStateFail|取值2~12|表示认证不通过，具体的不通过原因可以查看服务端的[查询认证结果](cn.zh-CN/实人认证/集成指南/服务端接入/查询认证结果.md#)（DescribeVerifyResult）接口文档中认证状态的表格说明|
+    |RPVerifyStateFail|取值3~12|表示认证不通过，具体的不通过原因可以查看服务端的查询认证结果（DescribeVerifyResult）接口文档中认证状态的表格说明|
     |RPVerifyStateNotVerify|-1|未完成认证，原因是：用户在认证过程中，主动退出|
     |RPVerifyStateNotVerify|3001|未完成认证，原因是：认证token无效或已过期|
     |RPVerifyStateNotVerify|3101|未完成认证，原因是：用户姓名身份证实名校验不匹配|
