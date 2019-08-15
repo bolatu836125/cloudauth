@@ -145,7 +145,9 @@ DescribeVerifyResultResponse verifyResultResponse = client.getAcsResponse(verify
 
 ## RPMin认证方案示例代码 {#section_8en_4eg_8qv .section}
 
-RPMin认证方案的人脸照片入参，支持公网可访问的http/https链接，也支持接入方使用实人认证提供的SDK将base64的图片上传到实人认证OSS Bucket后生成https链接。
+RPMin认证方案的人脸照片入参，支持公网可访问的HTTP/HTTPS链接，也支持接入方使用实人认证提供的SDK将base64的图片上传到实人认证OSS Bucket后生成https链接。
+
+**说明：** 如果您的业务需要使用上传SDK，请提交工单联系我们获取。
 
 ``` {#codeblock_8ab_axn_829}
 DefaultProfile profile = DefaultProfile.getProfile(
@@ -155,7 +157,7 @@ DefaultProfile profile = DefaultProfile.getProfile(
 DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", "Cloudauth", "cloudauth.aliyuncs.com");
 IAcsClient client = new DefaultAcsClient(profile);
 
-//若接入方的人脸图片是本地资源，则需要将base64图片直传到实人认证OSS并获取到图片地址
+//若接入方的人脸图片是本地资源，则可以使用实人认证提供的上传SDK将图片直传到实人认证OSS Bucket并获取到图片地址。如果您的业务需要使用上传SDK，请提交工单联系我们获取。
 CloudAuthClientUploader uploader = CloudAuthClientUploader.getClentUploader(client); // 获取上传oss的实例
 String faceImageUrl = uploader.uploadBase64("待上传的base64图片资源"); // 上传oss并获取图片链接
 
