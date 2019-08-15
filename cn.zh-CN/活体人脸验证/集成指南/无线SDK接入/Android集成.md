@@ -99,7 +99,7 @@ Android SDK 与包名（package name）+签名（keystore）绑定，修改packa
 
         如果在 project.properties中指定了ProGuard配置（例如，在`project.properties`中包含`proguard.config=proguard.cfg`语句），则表明已使用 ProGuard 进行代码混淆，混淆配置在 proguard.cfg 文件中。
 
-        ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/1135430/156574650353977_zh-CN.png)
+        ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/1135430/156584079053977_zh-CN.png)
 
     -   Android Studio
 
@@ -167,7 +167,7 @@ Android SDK 与包名（package name）+签名（keystore）绑定，修改packa
     |audit|code|code释义|
     |-----|----|------|
     |RPSDK.AUDIT.AUDIT\_PASS|1|认证通过|
-    |RPSDK.AUDIT.AUDIT\_FAIL|取值3~12|表示认证不通过，具体的不通过原因可以查看服务端的[查询认证结果](cn.zh-CN/实人认证/集成指南/服务端接入/查询认证结果.md#)（DescribeVerifyResult）接口文档中认证状态的表格说明|
+    |RPSDK.AUDIT.AUDIT\_FAIL|取值3~12|表示认证不通过，具体的不通过原因可以查看服务端的查询认证结果（DescribeVerifyResult）接口文档中认证状态的表格说明|
     |RPSDK.AUDIT.AUDIT\_NOT|-1|未完成认证，原因是：用户在认证过程中，主动退出|
     |RPSDK.AUDIT.AUDIT\_NOT|3001|未完成认证，原因是：认证token无效或已过期|
     |RPSDK.AUDIT.AUDIT\_NOT|3101|未完成认证，原因是：用户姓名身份证实名校验不匹配|
