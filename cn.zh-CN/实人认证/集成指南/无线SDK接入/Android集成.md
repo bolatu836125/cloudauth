@@ -4,11 +4,13 @@
 
 [单击查看老版本接入文档说明。](../../../../cn.zh-CN/老系统文档说明/老版本接入文档说明.md#)
 
-Android SDK 与包名（package name）+签名（keystore）绑定，修改package name或keystore都需要在[管理控制台](https://yundun.console.aliyun.com/?p=cloudauth)上重新下载SDK，debug 和 release 不能混用。
+Android SDK 与包名（package name）+签名（keystore）绑定，修改package name或keystore都需要在[管理控制台](https://yundun.console.aliyun.com/?p=cloudauth)上重新下载SDK，debug和release包在使用不同签名时不能混用。
 
 **说明：** 若您需要用到 V2 方式的签名，打包时请同时勾选 V1、V2 签名（如果只选择V2签名，apk将无法在Android 7.0以下安装）。
 
 ## 在工程中导入SDK {#section_hh6_fsh_a4b .section}
+
+**说明：** 对于已经接入过实人认证无线SDK的接入方（rpsdk版本号是2.1.x.x），在控制台下载到新版本的无线SDK后（rpsdk 版本号3.1.x.x），需要将新下载SDK包中的所有的文件覆盖到原有开发包，并按下述步骤引入到应用工程中。
 
 解压无线认证SDK包中的client.zip文件，将以下Android依赖包引入到您的应用工程中：
 
@@ -18,6 +20,7 @@ Android SDK 与包名（package name）+签名（keystore）绑定，修改packa
 -   SecurityBodySDK-external-release.aar（通过解压Android.SecurityBodySDK.xxx.tar获得该依赖包）
 -   SecurityGuardSDK-external-release.aar（通过解压Android.SecurityGuardSDK.xxx.tar获得该依赖包）
 -   Okhttp.jar Okio.jar
+-   logging-interceptor.jar
 -   Rpsdk.aar
 -   Windvane-mini.jar
 
@@ -38,9 +41,7 @@ Android SDK 与包名（package name）+签名（keystore）绑定，修改packa
 3.  在gradle文件中引入以下需要的库依赖。 
 
     ``` {#codeblock_u34_286_71o}
-    compile files('../libs/okhttp-3.2.0.jar')
-     compile files('../libs/okio-1.6.0.jar')
-     compile files('../libs/windvane-min-8.0.3.2.3.jar')
+     compile fileTree(dir: '../libs', include: ['*.jar'])
      compile (name:'aliyun-oss-sdk-android-2.9.2',ext:'aar')
      compile (name:'FaceLivenessOpen-2.1.6.10',ext:'aar')
      compile (name:'rpsdk-2.4.0.3',ext:'aar')
@@ -99,7 +100,7 @@ Android SDK 与包名（package name）+签名（keystore）绑定，修改packa
 
         如果在 project.properties中指定了ProGuard配置（例如，在`project.properties`中包含`proguard.config=proguard.cfg`语句），则表明已使用 ProGuard 进行代码混淆，混淆配置在 proguard.cfg 文件中。
 
-        ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/1135430/156584031253977_zh-CN.png)
+        ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/1135430/156592195553977_zh-CN.png)
 
     -   Android Studio
 
@@ -183,9 +184,11 @@ Android SDK 与包名（package name）+签名（keystore）绑定，修改packa
 
     处理建议：查看logcat。
 
-    -   若SG ERROR= 1208、1215、1224、1411，说明当前开发包与在管理控制台下载 SDK 时上传包的包名（packagename）或签名（keystore）不一致。
-        -   请在管理控制台重新上传当前开发包，用新下载 SDK 中的yw\_1222\_\*.jpg签名图片文件替换开发包中原有的文件。
-        -   若上述操作无法解决问题，确认签名图片是否正确放在res\\drawable\\目录下，且且关闭了Instant Run调试模式。
+    -   若SG ERROR= 1208、1215、1224、1411
+        -   如果您已经接入过实人认证无线SDK（rpsdk版本号是2.1.x.x），在控制台下载到新版本的无线SDK后（rpsdk 版本号3.1.x.x），需要将新下载SDK包中的所有的文件覆盖到原来开发包中，否则会报错。
+        -   如果确认不存在上述情况，则说明当前开发包与在管理控制台下载 SDK 时上传包的包名（packagename）或签名（keystore）不一致。
+            -   请在管理控制台重新上传当前开发包，用新下载 SDK 中的yw\_1222\_\*.jpg签名图片文件替换开发包中原有的文件。
+            -   若上述操作无法解决问题，确认签名图片是否正确放在res\\drawable\\目录下，且且关闭了Instant Run调试模式。
     -   若SG ERROR= 1412、1225，说明图片不存在，请确保res\\drawable\\目录下有正确的签名图片，且关闭了Instant Run调试模式。
     **说明：** 工程上，通常对 IDE 中直接运行（debug）和正式打包（release）会配置不同的签名（keystore），在 IDE 中直接编译运行的是 debug 包，其签名图片文件和 release 包是不同的。
 
