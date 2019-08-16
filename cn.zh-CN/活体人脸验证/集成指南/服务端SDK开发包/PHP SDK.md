@@ -4,48 +4,207 @@
 
 ## 获取地址 {#section_aq3_hss_gfb .section}
 
-单击前往[GitHub](https://github.com/aliyun/openapi-sdk-php)
+单击前往[GitHub](https://github.com/aliyun/openapi-sdk-php)。
 
 ## 使用说明 {#section_cz4_l5s_gfb .section}
 
 参见GitHub中的说明。
 
-## 实人认证和活体人脸验证示例 {#section_67t_8au_0u1 .section}
+## 示例代码 {#section_594_dqa_aak .section}
 
-完整示例正在准备中，请先参见Java SDK示例。
-
-## 人脸比对验证示例 {#section_as9_tb8_99u .section}
-
-``` {#codeblock_s0l_r4e_cjb}
+``` {#codeblock_eqb_8zu_eqn}
 <?php
-include_once './aliyun-php-sdk-core/Config.php';
-use Cloudauth\Request\V20180504 as cloudauth; //请以实际目录为准
-//创建DefaultAcsClient实例并初始化
-$iClientProfile = DefaultProfile::getProfile(
-    "cn-hangzhou",            //默认
-    "YourAccessKeyID",        //您的Access Key ID
-    "YourAccessKeySecret");    //您的Access Key Secret
-$iClientProfile::addEndpoint("cn-hangzhou", "cn-hangzhou", "Cloudauth", "cloudauth.aliyuncs.com");
-$client = new DefaultAcsClient($iClientProfile);
-//创建API请求并设置参数
-//CompareFaces接口文档：https://help.aliyun.com/document_detail/59317.html
-$request = new cloudauth\CompareFacesRequest();
-//若使用base64上传图片, 需要设置请求方法为POST
-$request->setMethod("POST");
-//传入图片资料，请控制单张图片大小在 2M 内，避免拉取超时
-$request->setSourceImageType("FacePic");
-$request->setSourceImageValue("base64://iVBORw0KGgoA..."); //base64方式上传图片, 格式为"base64://图片base64字符串", 以"base64://"开头且图片base64字符串去掉头部描述(如"data:image/png;base64,"), 并注意控制接口请求的Body在8M以内
-$request->setTargetImageType("FacePic"); //若为身份证芯片照则传"IDPic"
-$request->setTargetImageValue("http://image-demo.img-cn-hangzhou.aliyuncs.com/example.jpg"); //http方式上传图片, 此http地址须可公网访问
-//发起请求并处理异常
+require_once 'vendor/autoload.php';
+
+use AlibabaCloud\Client\AlibabaCloud;
+use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Exception\ServerException;
+
+/**
+ * 创建一个全局客户端
+ */
+AlibabaCloud::accessKeyClient('xxx', 'xxxxxx')->regionId('cn-hangzhou')->asDefaultClient();
+```
+
+## 发起认证请求DescribeVerifyToken示例代码 {#section_04n_j8k_yy5 .section}
+
+-   RPBasic、RPManual、FDBioOnly认证方案
+
+    ``` {#codeblock_5wi_y0d_ghp}
+    try {
+        // 访问产品 APIs
+        $request = AlibabaCloud::Cloudauth()->V20190307()->DescribeVerifyToken();
+        $result = $request->withBizType('实人认证控制台上创建场景时对应的场景标识') //创建方法参见[业务设置](../../../../cn.zh-CN/快速入门/业务设置.md#)
+                          ->withBizId('认证ID, 由接入方指定, 发起不同的认证任务需要更换不同的认证ID')
+                          ->connectTimeout(10)
+                          ->timeout(10)
+                          ->request();
+        // Convert the result to an array and print
+        print_r($result->toArray());
+    } catch (ClientException $e) {
+        // Print the error message
+        echo $e->getErrorMessage() . PHP_EOL;
+    } catch (ServerException $e) {
+        // Print the error message
+        echo $e->getErrorMessage() . PHP_EOL;
+        print_r($e->getResult()->toArray());
+    }
+    ```
+
+-   RPBioID、RPBioOnlyPro、RPBioOnly、RPH5BioOnly认证方案
+
+    ``` {#codeblock_p66_6s7_6dz}
+    try {
+        // 访问产品 APIs
+        $request = AlibabaCloud::Cloudauth()->V20190307()->DescribeVerifyToken();
+    
+        $result = $request->withBizType('实人认证控制台上创建场景时对应的场景标识') //创建方法参见[业务设置](../../../../cn.zh-CN/快速入门/业务设置.md#)
+                          ->withBizId('认证ID, 由接入方指定, 发起不同的认证任务需要更换不同的认证ID')
+                          ->withIdCardNumber('用户正确的身份证号')
+                          ->withName('用户正确的姓名')
+                          ->connectTimeout(10)
+                          ->timeout(10)
+                          ->request();
+        // Convert the result to an array and print
+        print_r($result->toArray());
+    } catch (ClientException $e) {
+        // Print the error message
+        echo $e->getErrorMessage() . PHP_EOL;
+    } catch (ServerException $e) {
+        // Print the error message
+        echo $e->getErrorMessage() . PHP_EOL;
+        print_r($e->getResult()->toArray());
+    }
+    ```
+
+-   FVBioOnly认证方案
+
+    ``` {#codeblock_ajz_0iy_30e}
+    try {
+        // 访问产品 APIs
+        $request = AlibabaCloud::Cloudauth()->V20190307()->DescribeVerifyToken();
+    
+        $result = $request->withBizType('实人认证控制台上创建场景时对应的场景标识') //创建方法参见[业务设置](../../../../cn.zh-CN/快速入门/业务设置.md#)
+                          ->withBizId('认证ID, 由接入方指定, 发起不同的认证任务需要更换不同的认证ID')
+                          ->withFaceRetainedImageUrl('公网可访问的图片http/https链接')
+                          ->connectTimeout(10)
+                          ->timeout(10)
+                          ->request();
+        // Convert the result to an array and print
+        print_r($result->toArray());
+    } catch (ClientException $e) {
+        // Print the error message
+        echo $e->getErrorMessage() . PHP_EOL;
+    } catch (ServerException $e) {
+        // Print the error message
+        echo $e->getErrorMessage() . PHP_EOL;
+        print_r($e->getResult()->toArray());
+    }
+    ```
+
+
+## 查询认证结果DescribeVerifyResult示例代码 {#section_ic3_9ln_n57 .section}
+
+``` {#codeblock_sp1_9uq_9y1}
 try {
-    $response = $client->getAcsResponse($request);
-    // 后续业务处理
-} catch (ServerException $e) {
-    print $e->getMessage();
+    // 访问产品 APIs
+    $request = AlibabaCloud::Cloudauth()->V20190307()->DescribeVerifyResult();
+
+    $result = $request->withBizType('实人认证控制台上创建场景时对应的场景标识') //创建方法参见[业务设置](../../../../cn.zh-CN/快速入门/业务设置.md#)
+                      ->withBizId('认证ID, 由接入方指定, 发起不同的认证任务需要更换不同的认证ID')
+                      ->connectTimeout(10)
+                      ->timeout(10)
+                      ->request();
+    // Convert the result to an array and print
+    print_r($result->toArray());
 } catch (ClientException $e) {
-    print $e->getMessage();
+    // Print the error message
+    echo $e->getErrorMessage() . PHP_EOL;
+} catch (ServerException $e) {
+    // Print the error message
+    echo $e->getErrorMessage() . PHP_EOL;
+    print_r($e->getResult()->toArray());
 }
-//常见问题：https://help.aliyun.com/document_detail/57640.html
+```
+
+## RPMin认证方案示例代码 {#section_vq6_3cl_dhj .section}
+
+``` {#codeblock_89v_bom_txm}
+try {
+    // 访问产品 APIs
+    $request = AlibabaCloud::Cloudauth()->V20190307()->VerifyMaterial();
+
+    $result = $request->withBizType('实人认证控制台上创建场景时对应的场景标识') //创建方法参见[业务设置](../../../../cn.zh-CN/快速入门/业务设置.md#)
+                      ->withBizId('认证ID, 由接入方指定, 发起不同的认证任务需要更换不同的认证ID')
+                      ->withName('用户正确的姓名')
+                      ->withIdCardNumber('用户正确的身份证号')
+                      ->withFaceImageUrl('公网可访问的图片http/https链接')
+                      ->connectTimeout(10)
+                      ->timeout(10)
+                      ->request();
+    // Convert the result to an array and print
+    print_r($result->toArray());
+} catch (ClientException $e) {
+    // Print the error message
+    echo $e->getErrorMessage() . PHP_EOL;
+} catch (ServerException $e) {
+    // Print the error message
+    echo $e->getErrorMessage() . PHP_EOL;
+    print_r($e->getResult()->toArray());
+}
+```
+
+## 人脸比对示例代码 {#section_dn6_sqt_7io .section}
+
+``` {#codeblock_37d_qsk_mxr}
+try {
+    // 访问产品 APIs
+    $request = AlibabaCloud::Cloudauth()->V20190307()->CompareFaces();
+
+    $result = $request->withSourceImageType('FacePic')
+                      ->withTargetImageType('FacePic')
+                      ->withSourceImageValue('公网可访问的图片http/https链接')
+                      ->withTargetImageValue('公网可访问的图片http/https链接')
+                      ->connectTimeout(10)
+                      ->timeout(10)
+                      ->request();
+    // Convert the result to an array and print
+    print_r($result->toArray());
+} catch (ClientException $e) {
+    // Print the error message
+    echo $e->getErrorMessage() . PHP_EOL;
+} catch (ServerException $e) {
+    // Print the error message
+    echo $e->getErrorMessage() . PHP_EOL;
+    print_r($e->getResult()->toArray());
+}
+```
+
+## 人脸属性检测示例代码 {#section_ep6_a3w_r8i .section}
+
+``` {#codeblock_0xo_oxf_706}
+try {
+    // 访问产品 APIs
+    $request = AlibabaCloud::Cloudauth()->V20190307()->DetectFaceAttributes();
+
+    $result = $request->withRetAttributes('facetype,headpose,age') //具体的属性由接入方按需传入
+                      ->withMaterialValue('公网可访问的图片http/https链接')
+                      ->withMaxFaceNum(1)
+                      ->withDontSaveDB('false')
+                      ->withClientTag('null')
+                      ->withMaxNumPhotosPerCategory(1)
+                      ->connectTimeout(10)
+                      ->timeout(10)
+                      ->request();
+    // Convert the result to an array and print
+    print_r($result->toArray());
+} catch (ClientException $e) {
+    // Print the error message
+    echo $e->getErrorMessage() . PHP_EOL;
+} catch (ServerException $e) {
+    // Print the error message
+    echo $e->getErrorMessage() . PHP_EOL;
+    print_r($e->getResult()->toArray());
+}
 ```
 
