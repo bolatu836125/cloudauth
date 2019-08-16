@@ -8,6 +8,8 @@
 
 ## 在工程中导入 SDK {#section_1d0_tas_sxy .section}
 
+**说明：** 对于已经接入过实人认证无线SDK的接入方（iOS SDK版本号<=2.1，可在RPSDK.framework文件夹下info.plist文件中查看CFRPSDKVersion），在控制台下载到新版本的无线SDK后（iOS SDK版本号\>=2.2），需要将新下载SDK包中的所有的文件替换原来工程里的对应文件，否则会报错。
+
 1.  解压无线认证SDK后，将以下iOS的依赖包引入到您的应用工程中： 
     -   RPSDK.framework
     -   FaceLivenessOpen.framework
@@ -41,7 +43,7 @@
     -   Libiconv.tbd
     -   Libc++.tbd
     -   Libz.tbd
-3.  在您的工程资源中（Copy Bundle Resources），引入无线认证SDK 包中的yw\_1222\_\*.jpg签名图片文件，以及resource目录下的FaceLivenessSDK.bundle和RPSDK.bundle文件。![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/1135432/156584080753978_zh-CN.png)
+3.  在您的工程资源中（Copy Bundle Resources），引入无线认证SDK 包中的yw\_1222\_\*.jpg签名图片文件，以及resource目录下的FaceLivenessSDK.bundle和RPSDK.bundle文件。![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/1135432/156592200853978_zh-CN.png)
 
 
 4.  编译选项：在工程的Other Linker Flags选项中添加-ObjC。
@@ -95,9 +97,11 @@
 
     处理建议：查看Xcode console。
 
-    -   若SG ERROR= 1208、1215、1411，说明当前开发包与在管理控制台下载 SDK 时上传包的BundleID不一致。请在管理控制台重新上传当前开发包，用新下载 SDK 中的yw\_1222\_\*.jpg签名图片文件替换开发包中原有的文件。
-    -   若SG ERROR= 1412、1225，说明图片不存在。请确保SDK 中的yw\_1222\_\*.jpg签名图片正确地引入到了Copy Bundle Resource 下。
--   项目中之前引入的组件与无线认证 SDK 中的组件有重复，例如 SecurityGuardSDK、AliyunOSSiOS 等。
+    -   若SG ERROR= 1208、1215、1411
+        -   如果您已经接入过实人认证无线SDK（iOS SDK版本号<=2.1，可在RPSDK.framework文件夹下info.plist文件中查看CFRPSDKVersion），在控制台下载到新版本的无线SDK后（iOS SDK版本号\>=2.2），需要将新下载SDK包中的所有的文件替换原来开发包里的对应文件。
+        -   如果确认不存在上述情况，则说明当前开发包与在管理控制台下载SDK时上传包的BundleID不一致。请在管理控制台重新上传当前开发包，用新下载SDK中的yw\_1222\_\*.jpg签名图片文件替换开发包中原有的文件。
+    -   若SG ERROR= 1412、1225，说明图片不存在。请确保SDK中的yw\_1222\_\*.jpg签名图片正确地引入到了Copy Bundle Resource下。
+-   项目中之前引入的组件与无线认证 SDK 中的组件有重复，例如SecurityGuardSDK、AliyunOSSiOS 等。
 
     处理建议：若SecurityGuardSDK组件有重复，删除低版本，但保留两个版本的yw\_1222\_\*.jpg签名图片文件；若 AliyunOSSiOS等其他组件有重复，删除低版本即可。
 
