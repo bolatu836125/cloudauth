@@ -100,7 +100,7 @@ Android SDK 与包名（package name）+签名（keystore）绑定，修改packa
 
         如果在 project.properties中指定了ProGuard配置（例如，在`project.properties`中包含`proguard.config=proguard.cfg`语句），则表明已使用 ProGuard 进行代码混淆，混淆配置在 proguard.cfg 文件中。
 
-        ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/1135430/156592199853977_zh-CN.png)
+        ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/1135430/156713138753977_zh-CN.png)
 
     -   Android Studio
 
@@ -155,7 +155,7 @@ Android SDK 与包名（package name）+签名（keystore）绑定，修改packa
              else if(audit ==
     RPSDK.AUDIT.AUDIT_FAIL) { //认证不通过
              }
-             else if(audit == RPSDK.AUDIT.AUDIT_NOT) { //未认证，通常是用户主动退出或者姓名身份证号实名校验不匹配等原因，导致未完成认证流程
+             else if(audit == RPSDK.AUDIT.AUDIT_NOT) { //未认证，具体原因可通过code来区分（code取值参见下方表格），通常是用户主动退出或者姓名身份证号实名校验不匹配等原因，导致未完成认证流程
              }
          }
      });
@@ -180,16 +180,16 @@ Android SDK 与包名（package name）+签名（keystore）绑定，修改packa
 
 ## 常见问题 {#section_zt8_umt_4m6 .section}
 
--   调起无线认证SDK，进入认证页面展示“UNKNOWN\_ERROR”/“网络异常，请检查网络”。
+-   调起无线认证SDK进入认证页面时，遇到**UNKNOWN\_ERROR**、**网络异常，请检查网络**报错提示。
 
     处理建议：查看logcat。
 
-    -   若SG ERROR= 1208、1215、1224、1411
-        -   如果您已经接入过实人认证无线SDK（rpsdk版本号是2.1.x.x），在控制台下载到新版本的无线SDK后（rpsdk 版本号3.1.x.x），需要将新下载SDK包中的所有的文件覆盖到原来开发包中，否则会报错。
-        -   如果确认不存在上述情况，则说明当前开发包与在管理控制台下载 SDK 时上传包的包名（packagename）或签名（keystore）不一致。
-            -   请在管理控制台重新上传当前开发包，用新下载 SDK 中的yw\_1222\_\*.jpg签名图片文件替换开发包中原有的文件。
-            -   若上述操作无法解决问题，确认签名图片是否正确放在res\\drawable\\目录下，且且关闭了Instant Run调试模式。
-    -   若SG ERROR= 1412、1225，说明图片不存在，请确保res\\drawable\\目录下有正确的签名图片，且关闭了Instant Run调试模式。
+    -   若ErrorCode = 103，需要将abiFilters配置为`armeabi-v7a`。若配置后问题仍然存在，请检查下gradle版本。如果gradle的版本是5.4.1及以上，请将其降回到5.1或4.x系列版本后，再试一遍。
+    -   若ErrorCode = 202，说明签名图片文件（yw\_1222\_0670.jpg）有问题。一般是获取签名图片文件时APK的签名和当前正在运行的APK签名不一致。请使用当前正在运行的APK重新获取签名图片文件。
+    -   若ErrorCode = 203，则请考虑下述三种情况：
+        -   签名图片文件（yw\_1222\_0670.jpg）不存在，请确保签名图片文件在res/drawable目录下。
+        -   安卓环境下可能是因为资源优化被优化成了0KB，请检查APK中的签名图片文件（res/drawable/yw\_1222\_0670.jpg），具体请参见shrinkResources解决方案。
+        -   如果是在Android Studio下调试发现找不到图片，但是确认图片是正常的，请关闭Android Studio的Instant Run功能。在Instant Run下，APK并非一个完整的bundle，其资源文件被拆分到特定bundle中，图片路径发生改变会导致找不到签名图片文件。
     **说明：** 工程上，通常对 IDE 中直接运行（debug）和正式打包（release）会配置不同的签名（keystore），在 IDE 中直接编译运行的是 debug 包，其签名图片文件和 release 包是不同的。
 
 -   项目中之前引入的组件与无线认证 SDK 中的组件有重复，例如 SecurityGuardSDK、oss-android-sdk 等。
