@@ -4,7 +4,9 @@
 
 ## 获取地址 {#section_0jl_0mt_7b8 .section}
 
-您需要引入两个SDK，包括aliyun-java-sdk-core（阿里云核心SDK）和aliyun-java-sdk-cloudauth（实人认证SDK）。单击[GitHub](https://github.com/aliyun/aliyun-openapi-python-sdk)，通过GitHub获取需要的Python SDK。
+[GitHub](https://github.com/aliyun/aliyun-openapi-python-sdk)，引入aliyun-python-sdk-core和aliyun-python-sdk-cloudauth。
+
+**说明：** 两个SDK都必须引入。其中，aliyun-python-sdk-core为阿里云的核心SDK，aliyun-python-sdk-cloudauth为实人认证的SDK。
 
 ## 使用说明 {#section_jqr_6tk_13l .section}
 
