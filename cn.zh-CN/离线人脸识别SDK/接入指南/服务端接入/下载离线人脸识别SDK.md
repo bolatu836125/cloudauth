@@ -46,7 +46,14 @@
 
 ## 示例 {#section_237_kc3_fyu .section}
 
-使用SDK开发包的示例，请参见Java、PHP、Python、.NET、Node.js、Go中的接入说明及离线人脸识别SDK下载示例部分的代码。（推荐以该方式接入）
+关于使用服务端SDK开发包的示例，请参见以下具体SDK开发包文档中的离线人脸识别SDK示例代码：
+
+-   [Java SDK](../../../../cn.zh-CN/实人认证/集成指南/服务端SDK开发包/Java SDK.md#)
+-   [PHP SDK](../../../../cn.zh-CN/实人认证/集成指南/服务端SDK开发包/PHP SDK.md#)
+-   [Python SDK](../../../../cn.zh-CN/实人认证/集成指南/服务端SDK开发包/Python SDK.md#)
+-   [.NET SDK](../../../../cn.zh-CN/实人认证/集成指南/服务端SDK开发包/.NET SDK.md#)
+-   [Node.js SDK](../../../../cn.zh-CN/实人认证/集成指南/服务端SDK开发包/Node.js SDK.md#)
+-   [Go SDK](../../../../cn.zh-CN/实人认证/集成指南/服务端SDK开发包/Go SDK.md#)
 
 以下是拼接HTTPS请求的相关示例：
 
